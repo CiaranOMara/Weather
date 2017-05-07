@@ -17,6 +17,33 @@ window.Vue = require('vue');
 
 Vue.component('example', require('./components/Example.vue'));
 
-const app = new Vue({
-    el: '#app'
+app = new Vue({
+    el: '#app',
+    data: function () {
+        return {
+            messages: []
+        }
+    },
+    methods: {
+        listenMessage (message) {
+
+            console.log("received: ", message);
+
+            this.messages.push(
+                message
+            );
+        }
+    },
+    created () {
+        if (typeof io === "undefined") {
+            alert('please check your laravel-echo-server status!');
+        } else {
+            Echo.channel('everyone')
+                .listen('SendMessageEvent', function (e) {
+                    if (e.message) {
+                        app.listenMessage(e.message);
+                    }
+                });
+        }
+    }
 });
