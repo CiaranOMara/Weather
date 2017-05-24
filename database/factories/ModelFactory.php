@@ -22,3 +22,47 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(App\Humidity::class, function (Faker\Generator $faker) {
+
+    static $startDate = '-1 day';
+
+    return [
+        'value' => $faker->randomFloat(2,18,25), //TODO: set to realistic relative humidity value.
+        'created_at' => $faker->dateTimeBetween($startDate)
+    ];
+});
+
+$factory->state(App\Humidity::class, 'low', function (Faker\Generator $faker) {
+    return [
+        'value' => $faker->randomFloat(2,10,18), //TODO: set to realistic relative humidity value.
+    ];
+});
+
+$factory->state(App\Humidity::class, 'high', function (Faker\Generator $faker) {
+    return [
+        'value' => $faker->randomFloat(2,25,30), //TODO: set to realistic relative humidity value.
+    ];
+});
+
+$factory->define(App\Temperature::class, function (Faker\Generator $faker) {
+
+    static $startDate = '-1 day';
+
+    return [
+        'value' => $faker->randomFloat(2,18,25),
+        'created_at' => $faker->dateTimeBetween($startDate)
+    ];
+});
+
+$factory->state(App\Temperature::class, 'low', function (Faker\Generator $faker) {
+    return [
+        'value' => $faker->randomFloat(2,10,18),
+    ];
+});
+
+$factory->state(App\Temperature::class, 'high', function (Faker\Generator $faker) {
+    return [
+        'value' => $faker->randomFloat(2,25,30),
+    ];
+});
