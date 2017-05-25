@@ -13,7 +13,11 @@ class DummyDataSeeder extends Seeder
      */
     public function run()
     {
-        factory(Humidity::class, 1000)->create();
-        factory(Temperature::class, 1000)->create();
+        $points = 60*24;
+        factory(Humidity::class, $points)->create();
+        factory(Temperature::class, $points)->create();
+//        factory(Temperature::class, $points)->create([
+//            'value' => '10',
+//        ]);
     }
 }

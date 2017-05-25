@@ -4,7 +4,7 @@
     <div class="container">
 
         <div class="row" v-if="messages.length">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-xs-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">Messages</div>
 
@@ -18,19 +18,19 @@
         </div>
 
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-xs-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">Humidity</div>
 
                     <div class="panel-body">
-                        <chart ref="humidity" :data="humidity" ></chart>
+                        <chart ref="humidity" :data="humidity"></chart>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-xs-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">Temperature</div>
 
