@@ -116,8 +116,11 @@ const app = new Vue({
         if (typeof io === "undefined") {
             alert('please check your laravel-echo-server status!');
         } else {
-            Echo.private('message')
-                .listen('SendMessageEvent', function (e) {
+            Echo.channel('message')
+                .listen('SendMessageEvent', (e) => {
+
+                    console.debug("Received SendMessageEvent:", e);
+
                     if (e.message) {
                         this.listenMessage(e.message);
                     }
