@@ -16,6 +16,7 @@ mix.js('resources/assets/js/app.js', 'public/js')
     .extract(['axios', 'bootstrap-sass', 'jquery', 'laravel-echo', 'lodash', 'moment', 'vue']);
 
 if (mix.config.inProduction) {
+    mix.disableNotifications();
     mix.version();
 }
 
