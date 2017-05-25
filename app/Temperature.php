@@ -6,5 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Temperature extends Model
 {
+    use scopeTraits;
+
     public $fillable = ['value'];
 }
