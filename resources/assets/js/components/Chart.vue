@@ -40,7 +40,7 @@
                             type: Chartist.FixedScaleAxis,
                             divisor: 24,
                             labelInterpolationFnc (value) {
-                                return moment.utc(value).local().format('H:00')
+                                return moment(value).local().format('H:mm')
                             }
                         },
                     };

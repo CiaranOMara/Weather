@@ -53,12 +53,17 @@ const app = new Vue({
                 message
             );
         },
-        streamData(base, obj) {
+        pushDatum(base, datum){
+            let date = moment.utc(datum.created_at).local().toDate();
+
+            this[base].series[0].data.push({x: date, y: datum.value});
+        },
+        streamData(base, datum) {
             this[base].series[0].data.shift();
-            this[base].series[0].data.push({x: new Date(obj.created_at), y: obj.value});
+            this.pushDatum(base, datum);
         },
         loadMessages(){
-
+            //
         },
         loadHumidity() {
             axios
@@ -73,7 +78,7 @@ const app = new Vue({
                     const data = response.data;
 
                     _.each(data, datum => {
-                        this.humidity.series[0].data.push({x: new Date(datum.created_at), y: datum.value});
+                        this.pushDatum('humidity', datum);
                     });
 
                 })
@@ -94,7 +99,7 @@ const app = new Vue({
                     const data = response.data;
 
                     _.each(data, datum => {
-                        this.temperature.series[0].data.push({x: new Date(datum.created_at), y: datum.value});
+                        this.pushDatum('temperature', datum)
                     });
 
                 })
