@@ -20,7 +20,7 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Humidity</div>
+                    <div class="panel-heading">Humidity<small v-if="latestHumidity">: @{{ latestHumidity }}</small></div>
 
                     <div class="panel-body">
                         <chart ref="humidity" :data="humidity"></chart>
@@ -32,7 +32,7 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Temperature</div>
+                    <div class="panel-heading">Temperature<small v-if="latestTemperature">: @{{ latestTemperature }}</small></div>
 
                     <div class="panel-body">
                         <chart ref="temperature" :data="temperature"></chart>
