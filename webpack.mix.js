@@ -20,6 +20,10 @@ if (mix.config.inProduction) {
     mix.version();
 }
 
+mix.autoload({
+    'jquery': ['jQuery', '$'],
+});
+
 mix.browserSync({
     proxy: 'weather.app:8000',
     browser: "google chrome"
