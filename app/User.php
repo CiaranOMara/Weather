@@ -39,4 +39,18 @@ class User extends Authenticatable
             new PrivateChannel('users.' . $this->id),
         ];
     }
+    /**
+     * Boot the model.
+     *
+     * @return void
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function (User $user) {
+            $user->verification_token = Str::random(60);;
+        });
+    }
+
 }
