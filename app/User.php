@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
