@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Traits\HasPermissionAndRole;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -9,7 +10,7 @@ use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use HasPermissionAndRole, Notifiable;
 
     /**
      * The attributes that are mass assignable.
