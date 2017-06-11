@@ -80,6 +80,10 @@
             </div>
         </nav>
 
+        <div id="flash" class="container">
+            @include('flash::message')
+        </div>
+
         @yield('content')
     </div>
 
@@ -87,5 +91,18 @@
     <script src="{{ mix('js/manifest.js') }}"></script>
     <script src="{{ mix('js/vendor.js') }}"></script>
     <script src="{{ mix('js/app.js') }}"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            // Flash messages
+            $('#flash-overlay-modal').modal();
+            $('#flash div.alert').not('.alert-important').delay(5000).fadeOut(350);
+
+            // Bootstrap opt-in functionality
+            $('[data-toggle="popover"]').popover();
+            $('[data-toggle="tooltip"]').tooltip();
+        })
+    </script>
+
 </body>
 </html>

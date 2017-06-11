@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Laracasts\Flash\Flash;
 
 class RegisterController extends Controller
 {
@@ -83,6 +84,8 @@ class RegisterController extends Controller
 
             Log::info("Email address verified:", ['email' => $user->email]);
 
+            Flash::success('Your email address has now been verified')->important();
+
             $this->guard()->login($user);
 
             return redirect($this->redirectPath());
@@ -90,6 +93,8 @@ class RegisterController extends Controller
         }
 
         Log::info("Email address verification token not found:", ['token' => $token]); //Note: this will be a user error.
+
+        Flash::warning('Your email address may have already been verified. The token provided was not found and may have already been used.')->important();
 
         return redirect()->route('login');
     }
