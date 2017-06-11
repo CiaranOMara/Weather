@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Traits\HasPermissionAndRole;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -31,17 +32,6 @@ class User extends Authenticatable
     ];
 
     /**
-     * The channels the user receives notification broadcasts on.
-     *
-     * @return array
-     */
-    public function receivesBroadcastNotificationsOn()
-    {
-        return [
-            new PrivateChannel('users.' . $this->id),
-        ];
-    }
-    /**
      * Boot the model.
      *
      * @return void
@@ -55,6 +45,18 @@ class User extends Authenticatable
         });
     }
 
+    public static function register($attributes)
+    {
+
+        $attributes['password'] = bcrypt($attributes['password']);
+
+        $user = static::create($attributes);
+
+        event(new Registered($user));
+
+        return $user;
+    }
+
     /**
      * Confirm the user.
      *
@@ -66,6 +68,18 @@ class User extends Authenticatable
         $this->verification_token = null;
 
         $this->save();
+    }
+
+    /**
+     * The channels the user receives notification broadcasts on.
+     *
+     * @return array
+     */
+    public function receivesBroadcastNotificationsOn()
+    {
+        return [
+            new PrivateChannel('users.' . $this->id),
+        ];
     }
 
 }
