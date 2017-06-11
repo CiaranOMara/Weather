@@ -18,6 +18,7 @@ class EventServiceProvider extends ServiceProvider
 
         'Illuminate\Auth\Events\Registered' => [
             'App\Listeners\LogRegisteredUser',
+            'App\Listeners\SendVerificationRequest',
         ],
 
         'Illuminate\Auth\Events\Attempting' => [

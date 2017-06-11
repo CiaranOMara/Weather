@@ -53,4 +53,17 @@ class User extends Authenticatable
         });
     }
 
+    /**
+     * Confirm the user.
+     *
+     * @return void
+     */
+    public function confirmEmail()
+    {
+        $this->verified = true;
+        $this->verification_token = null;
+
+        $this->save();
+    }
+
 }
