@@ -27,6 +27,6 @@ class LogAuthenticated
      */
     public function handle(Authenticated $event)
     {
-        Log::info("User authenticated:", ['email' => $event->user->email]);
+        Log::info("Authenticated:", ['email' => $event->user->email]);
     }
 }

@@ -27,6 +27,6 @@ class LogAuthenticationAttempt
      */
     public function handle(Attempting $event)
     {
-        Log::info("User authenticated:", ['email' => $event->user->email]);
+        Log::info("Authentication attempt:", ['email' => $event->credentials['email']]);
     }
 }
