@@ -16,7 +16,11 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-Route::get('confirm/{token}', ['as' => 'auth.confirm', 'uses' => 'Auth\RegisterController@confirmEmail']);
+
+Route::get('password/set', 'Auth\RegisterController@showSetPasswordForm')->name('password.set')->middleware('logout', 'guest');
+Route::post('password/set', 'Auth\RegisterController@setPassword')->name('password.set.post')->middleware('guest');
+
+Route::get('confirm/{token}', ['as' => 'auth.confirm', 'uses' => 'Auth\RegisterController@confirmEmail'])->middleware('logout', 'guest');
 
 Route::get('/home', 'HomeController@index')->name('home');
 

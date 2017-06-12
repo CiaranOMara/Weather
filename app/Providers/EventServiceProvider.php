@@ -14,6 +14,10 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
 
+        'App\Events\AdminCreatedUser' => [
+            'App\Listeners\SendVerificationRequestFromAdministrator',
+        ],
+
         // Authentication Events
 
         'Illuminate\Auth\Events\Registered' => [
