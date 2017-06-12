@@ -4,7 +4,7 @@ namespace App;
 
 use Carbon\Carbon;
 
-trait scopeTraits
+trait ScopeTrait
 {
 
     /**

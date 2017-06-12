@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Str;
 
-trait HasPermissionAndRole
+trait HasPermissionAndRoleTrait
 {
 
     /**

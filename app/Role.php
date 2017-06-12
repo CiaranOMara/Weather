@@ -2,19 +2,19 @@
 
 namespace App;
 
-use App\Traits\Sluggable;
+use App\Traits\SluggableTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
 {
 
-    use Sluggable;
+    use SluggableTrait;
 
     public function __construct(array $attributes = [])
     {
-        parent::__construct($attributes);
-
         $this->separator = config('roles.separator');
+
+        parent::__construct($attributes);
     }
 
     /**
