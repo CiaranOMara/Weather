@@ -61,5 +61,8 @@ class Kernel extends HttpKernel
          * Custom route Middleware...
          */
         'logout' => \App\Http\Middleware\LogoutIfAuthenticated::class,
+        'role' => \App\Http\Middleware\VerifyRole::class,
+        'permission' => \App\Http\Middleware\VerifyPermission::class,
+        'level' => \App\Http\Middleware\VerifyLevel::class,
     ];
 }
