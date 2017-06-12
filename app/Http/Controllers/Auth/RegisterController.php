@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Str;
 use Laracasts\Flash\Flash;
 
 class RegisterController extends Controller
@@ -22,7 +24,9 @@ class RegisterController extends Controller
     |
     */
 
-    use RegistersUsers;
+    use RegistersUsers {
+        register as registerTrait;
+    }
 
     /**
      * Where to redirect users after registration.
@@ -54,6 +58,22 @@ class RegisterController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
+    }
+
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function register(Request $request)
+    {
+        // Normalise email.
+        if ($email = $request->input('email', false)) {
+            $request->merge(['email' => Str::lower($email)]);
+        }
+
+        return $this->registerTrait($request);
     }
 
     /**
