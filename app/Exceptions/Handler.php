@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Laracasts\Flash\Flash;
@@ -45,13 +46,13 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        if ($exception instanceof \App\Exceptions\RoleDeniedException) {
-            Flash::warning('Sorry, we could not service your request. You do not have permission.');
+        if ($exception instanceof AuthorizationException || $exception instanceof \App\Exceptions\RoleDeniedException) {
+            Flash::warning('Sorry, we could not service your request. You are not authorised.');
             return redirect()->back();
         }
 
         if ($exception instanceof \Illuminate\Session\TokenMismatchException) {
-            Flash::error('Sorry, we could not verify your request. Please try again.');
+            Flash::warning('Sorry, we could not verify your request. Please try again.');
             return redirect()->back();
         }
 
