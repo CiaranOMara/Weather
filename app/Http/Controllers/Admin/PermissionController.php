@@ -18,6 +18,8 @@ class PermissionController extends Controller
      */
     public function index()
     {
+        $this->authorize('view', Permission::class);
+
         $data = ['permissions' => Permission::all()];
 
         return view('admin.permissions.index')->with($data);
@@ -30,6 +32,8 @@ class PermissionController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Permission::class);
+
         return view('admin.permissions.create');
     }
 
@@ -41,6 +45,7 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Permission::class);
 
         // Normalise slug.
         if ($slug = $request->input('slug')) {
@@ -71,6 +76,8 @@ class PermissionController extends Controller
      */
     public function show(Permission $permission)
     {
+        $this->authorize('view', $permission);
+
         return $this->edit($permission);
     }
 
@@ -82,6 +89,8 @@ class PermissionController extends Controller
      */
     public function edit(Permission $permission)
     {
+        $this->authorize('update', $permission);
+
         return view('admin.permissions.edit')->with(['permission' => $permission]);
     }
 
@@ -94,6 +103,8 @@ class PermissionController extends Controller
      */
     public function update(Request $request, Permission $permission)
     {
+        $this->authorize('update', $permission);
+
         // Normalise slug.
         if ($slug = $request->input('slug', false)) {
             $request->merge(['slug' => Str::slug($slug, config('roles.separator'))]);
@@ -129,6 +140,8 @@ class PermissionController extends Controller
      */
     public function destroy(Permission $permission)
     {
+        $this->authorize('delete', $permission);
+
         $permission->delete();
 
         Flash::success("The $permission->name permission was deleted.");

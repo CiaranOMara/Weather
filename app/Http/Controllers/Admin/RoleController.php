@@ -19,6 +19,8 @@ class RoleController extends Controller
      */
     public function index()
     {
+        $this->authorize('view', Role::class);
+
         $data = ['roles' => Role::all()];
 
         return view('admin.roles.index')->with($data);
@@ -31,6 +33,8 @@ class RoleController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Role::class);
+
         return view('admin.roles.create');
     }
 
@@ -42,6 +46,7 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Role::class);
 
         // Add default level if not present.
         if (!$request->has('level')) {
@@ -77,6 +82,8 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
+        $this->authorize('view', $role);
+
         return $this->edit($role);
     }
 
@@ -88,6 +95,8 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
+        $this->authorize('update', $role);
+
         $data = [
             'role' => $role,
             'permissions' => Permission::all('id', 'name')->whereNotIn('id', $role->permissions->pluck('id'))
@@ -105,6 +114,9 @@ class RoleController extends Controller
      */
     public function update(Request $request, Role $role)
     {
+        $this->authorize('update', $role);
+
+
         // Add default level if not present.
         if (!$request->has('level')) {
             $request->merge(['level' => '1']);
@@ -144,6 +156,8 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
+        $this->authorize('delete', $role);
+
         $role->delete();
 
         Flash::success("The $role->name role was deleted.");
@@ -153,6 +167,10 @@ class RoleController extends Controller
 
     public function attachPermission(Role $role, Request $request)
     {
+
+        $this->authorize('attachPermission', $role);
+
+
         $permission = Permission::FindOrFail($request->input('permission'));
 
         $role->permissions()->attach($permission->id);
@@ -165,6 +183,8 @@ class RoleController extends Controller
 
     public function detachPermission(Role $role, Permission $permission)
     {
+        $this->authorize('detachPermission', [$role, $permission]);
+
         $role->permissions()->detach($permission->id);
 
         Flash::success("The $permission->name permission was removed from the $role->name role.");

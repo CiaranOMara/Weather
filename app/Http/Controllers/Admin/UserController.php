@@ -21,6 +21,8 @@ class UserController extends Controller
      */
     public function index()
     {
+        $this->authorize('view', User::class);
+
         $data = ['users' => User::all()];
 
         return view('admin.users.index')->with($data);
@@ -33,6 +35,8 @@ class UserController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', User::class);
+
         return view('admin.users.create');
     }
 
@@ -44,6 +48,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', User::class);
 
         // Normalise email.
         if ($email = $request->input('email', false)) {
@@ -76,6 +81,8 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        $this->authorize('view', $user);
+
         return $this->edit($user);
     }
 
@@ -87,6 +94,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+
+        $this->authorize('update', $user);
 
         $user->load(['roles', 'userPermissions']);
 
@@ -108,6 +117,8 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+
+        $this->authorize('update', $user);
 
         // Normalise email.
         if (!$request->has('email')) {
@@ -141,6 +152,8 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        $this->authorize('delete', $user);
+
         $user->delete();
 
         Flash::success("The user $user->name was deleted.");
@@ -151,6 +164,8 @@ class UserController extends Controller
 
     public function attachPermission(User $user, Request $request)
     {
+        $this->authorize('attachPermission', $user);
+
         $permission = Permission::FindOrFail($request->input('permission'));
 
         if ($user->attachPermission($permission) === true) { //Note: returns null if successful.
@@ -165,6 +180,7 @@ class UserController extends Controller
 
     public function detachPermission(User $user, Permission $permission)
     {
+        $this->authorize('detachPermission', [$user, $permission]);
 
         if ($user->detachPermission($permission)) {//Note: returns id if successful else zero.
             Flash::success("The $permission->name permission was detach from the user $user->name.");
@@ -177,6 +193,9 @@ class UserController extends Controller
 
     public function attachRole(User $user, Request $request)
     {
+        $this->authorize('attachRole', $user);
+
+
         $role = Role::FindOrFail($request->input('role'));
 
         if ($user->attachRole($role) === true) {
@@ -191,6 +210,8 @@ class UserController extends Controller
 
     public function detachRole(User $user, Role $role)
     {
+        $this->authorize('detachRole', [$user, $role]);
+
         if ($user->detachRole($role)) {//Note: returns id if successful else zero.
             Flash::success("The $role->name role was detach from the user $user->name.");
         } else {

@@ -30,7 +30,7 @@ class Role extends Model
      */
     public function permissions()
     {
-        return $this->belongsToMany(Permission::class)->withTimestamps();
+        return $this->belongsToMany(Permission::class)->withPivot('permanent')->withTimestamps();
     }
 
     /**
@@ -48,9 +48,9 @@ class Role extends Model
      * @param int|Permission $permission
      * @return int|bool
      */
-    public function attachPermission($permission)
+    public function attachPermission($permission, $intermediate = [])
     {
-        return (!$this->permissions()->get()->contains($permission)) ? $this->permissions()->attach($permission) : true;
+        return (!$this->permissions()->get()->contains($permission)) ? $this->permissions()->attach($permission, $intermediate) : true;
     }
 
     /**
