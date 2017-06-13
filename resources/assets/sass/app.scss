@@ -8,5 +8,7 @@
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
-// Chartist
-@import "node_modules/chartist/dist/scss/chartist";
+// 3rd Parties
+@import "chartist";
+@import "font-awesome";
+

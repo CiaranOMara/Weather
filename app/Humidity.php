@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Humidity extends Model
 {
-    use scopeTraits;
+    use ScopeTrait;
 
     public $fillable = ['value'];
 }

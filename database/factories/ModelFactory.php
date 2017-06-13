@@ -66,3 +66,20 @@ $factory->state(App\Temperature::class, 'high', function (Faker\Generator $faker
         'value' => $faker->randomFloat(2,25,30),
     ];
 });
+
+
+$factory->define(App\Role::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->words(2, true),
+        'slug' => $faker->slug(2),
+        'description' => '',
+    ];
+});
+$factory->define(App\Permission::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->words(2, true),
+        'slug' => $faker->slug(2),
+        'description' => '',
+        'model' => $faker->words(1, true),
+    ];
+});
