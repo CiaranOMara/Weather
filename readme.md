@@ -30,6 +30,18 @@ Build javascript and css.
 ```commandline
 yarn run production
 ```
+### Register Administrator
+
+```commandline
+php artisan register:administrator
+```
+
+## Starting Laravel Echo and Workers
+In your project root directory, run
+```commandline
+laravel-echo-server start
+```
+
 
 ## Versioning
 This project will try to follow the [semver](http://semver.org) pro forma.

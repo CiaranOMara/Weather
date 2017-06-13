@@ -18,6 +18,7 @@ class Kernel extends ConsoleKernel
         Commands\LogTemperature::class,
         Commands\LogWeather::class,
         Commands\QueryAM2315::class,
+        Commands\RegisterAdministratorCommand::class,
     ];
 
     /**

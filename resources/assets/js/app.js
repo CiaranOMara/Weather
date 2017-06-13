@@ -44,6 +44,35 @@ const app = new Vue({
             }
         }
     },
+    computed: {
+        latestHumidity(){
+            let data = _.get(this, 'humidity.series[0].data', null);
+
+            console.debug('humidity data', data);
+
+            if (data) {
+                let last = _.last(data);
+
+                console.debug("latest humidity:", last);
+
+                return last ? `${last.y} %RH at ${moment(last.x).local().format('YYYY-MM-DD H:mm')}` : ''
+            }
+
+        },
+        latestTemperature(){
+            let data = _.get(this, 'temperature.series[0].data', null);
+
+            console.debug('temperature data', data);
+
+            if (data) {
+                let last = _.last(data);
+
+                console.debug("latest temperature:", last);
+
+                return last ? `${last.y} ˚C at ${moment(last.x).local().format('YYYY-MM-DD H:mm')}` : ''
+            }
+        }
+    },
     methods: {
         listenMessage (message) {
 

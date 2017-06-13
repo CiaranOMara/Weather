@@ -13,12 +13,17 @@ const {mix} = require('laravel-mix');
 
 mix.js('resources/assets/js/app.js', 'public/js')
     .sass('resources/assets/sass/app.scss', 'public/css')
-    .extract(['axios', 'bootstrap-sass', 'jquery', 'laravel-echo', 'lodash', 'moment', 'vue']);
+    .extract(['axios', 'bootstrap-sass', 'jquery', 'laravel-echo', 'lodash', 'moment', 'vue'])
+    .copy('node_modules/font-awesome/fonts', 'public/fonts');
 
 if (mix.config.inProduction) {
     mix.disableNotifications();
     mix.version();
 }
+
+mix.autoload({
+    'jquery': ['jQuery', '$'],
+});
 
 mix.browserSync({
     proxy: 'weather.app:8000',

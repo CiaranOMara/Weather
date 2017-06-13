@@ -3,8 +3,10 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Laracasts\Flash\Flash;
 
 class Handler extends ExceptionHandler
 {
@@ -27,7 +29,7 @@ class Handler extends ExceptionHandler
      *
      * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
      *
-     * @param  \Exception  $exception
+     * @param  \Exception $exception
      * @return void
      */
     public function report(Exception $exception)
@@ -38,20 +40,30 @@ class Handler extends ExceptionHandler
     /**
      * Render an exception into an HTTP response.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $exception
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Exception $exception
      * @return \Illuminate\Http\Response
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof AuthorizationException || $exception instanceof \App\Exceptions\RoleDeniedException) {
+            Flash::warning('Sorry, we could not service your request. You are not authorised.');
+            return redirect()->back();
+        }
+
+        if ($exception instanceof \Illuminate\Session\TokenMismatchException) {
+            Flash::warning('Sorry, we could not verify your request. Please try again.');
+            return redirect()->back();
+        }
+
         return parent::render($request, $exception);
     }
 
     /**
      * Convert an authentication exception into an unauthenticated response.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Illuminate\Auth\AuthenticationException  $exception
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Auth\AuthenticationException $exception
      * @return \Illuminate\Http\Response
      */
     protected function unauthenticated($request, AuthenticationException $exception)
