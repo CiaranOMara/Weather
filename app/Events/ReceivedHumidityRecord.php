@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\Temperature;
+use App\Humidity;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -11,20 +11,20 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class TemperatureWasLogged implements ShouldBroadcast
+class ReceivedHumidityRecord implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $temperature;
+    public $humidity;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(Temperature $temperature)
+    public function __construct(Humidity $humidity)
     {
-        $this->temperature = $temperature;
+        $this->humidity = $humidity;
     }
 
     /**

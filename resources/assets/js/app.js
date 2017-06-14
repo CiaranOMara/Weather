@@ -161,17 +161,17 @@ const app = new Vue({
                 });
 
             Echo.channel('weather')
-                .listen('HumidityWasLogged', (e) => {
+                .listen('ReceivedHumidityRecord', (e) => {
 
-                    console.debug("Received HumidityWasLogged:", e);
+                    console.debug("Received humidity record:", e);
 
                     if (e.humidity) {
                         this.streamData("humidity", e.humidity);
                     }
                 })
-                .listen('TemperatureWasLogged', (e) => {
+                .listen('ReceivedTemperatureRecord', (e) => {
 
-                    console.debug("Received TemperatureWasLogged:", e);
+                    console.debug("Received temperature record:", e);
 
                     if (e.temperature) {
                         this.streamData("temperature", e.temperature);

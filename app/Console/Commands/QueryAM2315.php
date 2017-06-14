@@ -44,7 +44,7 @@ class QueryAM2315 extends Command
         $path = app_path('Sensors/AM2315.py');
 
         // Call python script.
-        $mystring = system('python3 '.$path, $retval);
+        $mystring = system('python3 ' . $path, $retval);
 
 //        dd([
 //          '$mystring'=>$mystring,
@@ -58,7 +58,7 @@ class QueryAM2315 extends Command
         $temperature = $weather[1];
 
         if ($humidity && $temperature) {
-            $exitCode = Artisan::call('log:weather', [
+            $exitCode = Artisan::call('record:weather', [
                 'humidity' => $humidity, 'temperature' => $temperature
             ]);
         }
