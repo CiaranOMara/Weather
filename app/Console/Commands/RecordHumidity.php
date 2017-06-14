@@ -42,7 +42,5 @@ class RecordHumidity extends Command
         $humidity = Humidity::create([
             'value' => $this->argument('value')
         ]);
-
-        event(new ReceivedHumidityRecord($humidity));
     }
 }

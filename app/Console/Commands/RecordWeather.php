@@ -46,13 +46,9 @@ class RecordWeather extends Command
             'value' => $this->argument('humidity')
         ]);
 
-        event(new ReceivedHumidityRecord($humidity));
-
         $temperature = Temperature::create([
             'value' => $this->argument('temperature')
         ]);
-
-        event(new ReceivedTemperatureRecord($temperature));
 
     }
 }

@@ -14,6 +14,18 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
 
+        // Recording Events
+
+        'App\Events\ReceivedHumidityRecord' => [
+            'App\Listeners\ProcessHumidityRecord',
+        ],
+
+        'App\Events\ReceivedTemperatureRecord' => [
+            'App\Listeners\ProcessTemperatureRecord',
+        ],
+
+        // Administrative Events
+
         'App\Events\AdminCreatedUser' => [
             'App\Listeners\SendVerificationRequestFromAdministrator',
         ],

@@ -42,7 +42,5 @@ class RecordTemperature extends Command
         $temperature = Temperature::create([
             'value' => $this->argument('value')
         ]);
-
-        event(new ReceivedTemperatureRecord($temperature));
     }
 }
