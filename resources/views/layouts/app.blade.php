@@ -63,6 +63,13 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
+                                @role('admin|moderator')
+                                <li class="{{ set_active('watcher*') }}"><a
+                                            href="{{ route('watchers.index') }}">Watchers</a></li>
+
+                                <li role="presentation" class="divider"></li>
+                                @endrole
+
                                 @role('admin')
 
                                 <li class="dropdown-header">

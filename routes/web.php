@@ -24,6 +24,10 @@ Route::get('confirm/{token}', ['as' => 'auth.confirm', 'uses' => 'Auth\RegisterC
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::post('watcher/{watcher}/users', 'WatcherController@attachUser')->name('watchers.users.store');
+Route::delete('watchers/{watcher}/users/{user}', 'WatcherController@detachUser')->name('watchers.users.destroy');
+Route::resource('watchers', 'WatcherController');
+
 Route::group(['as' => 'admin.', 'namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], function () {
 
     # Permissions
