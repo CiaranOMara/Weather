@@ -26,6 +26,6 @@ class ProcessTemperatureRecord
      */
     public function handle(ReceivedTemperatureRecord $event)
     {
-        $event->temperature->process();
+        $event->temperature->signal();
     }
 }
