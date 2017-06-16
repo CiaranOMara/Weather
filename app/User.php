@@ -58,6 +58,15 @@ class User extends Authenticatable
     }
 
     /**
+     * Role belongs to many users.
+     *
+     */
+    public function watchers()
+    {
+        return $this->belongsToMany(Watcher::class)->withTimestamps();
+    }
+
+    /**
      * Confirm the user.
      *
      * @return void

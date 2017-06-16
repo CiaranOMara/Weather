@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Policies\WatcherPolicy;
 use App\User;
 use App\Watcher;
 use Illuminate\Http\Request;
@@ -162,9 +163,9 @@ class WatcherController extends Controller
 
     public function attachUser(Watcher $watcher, Request $request)
     {
-        $this->authorize('attachUser', $watcher);
-
         $user = User::FindOrFail($request->input('user'));
+
+        $this->authorize('attachUser', [Watcher::class, $user]);
 
         $watcher->users()->attach($user->id);
 
@@ -176,7 +177,8 @@ class WatcherController extends Controller
 
     public function detachUser(Watcher $watcher, User $user)
     {
-        $this->authorize('detachUser', [$watcher, $user]);
+
+        $this->authorize('detachUser', [Watcher::class, $user]);
 
         $watcher->users()->detach($user->id);
 
