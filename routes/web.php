@@ -22,7 +22,21 @@ Route::post('password/set', 'Auth\RegisterController@setPassword')->name('passwo
 
 Route::get('confirm/{token}', ['as' => 'auth.confirm', 'uses' => 'Auth\RegisterController@confirmEmail'])->middleware('logout', 'guest');
 
-Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['middleware' => ['auth']], function () {
+
+    Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+    Route::get('home', function () {
+        return redirect()->route('dashboard');
+    })->name('home');
+
+    Route::post('triggers/{trigger}/users', 'TriggerController@attachUser')->name('triggers.users.store');
+    Route::delete('triggers/{trigger}/users/{user}', 'TriggerController@detachUser')->name('triggers.users.destroy');
+    Route::resource('triggers', 'TriggerController');
+
+    Route::match(['get', 'patch'], 'notifications/{notification}', 'NotificationController@markAsRead')->name('notifications.read')->middleware('auth');
+    Route::match(['get', 'patch'], 'notifications', 'NotificationController@markAllAsRead')->name('notifications.all')->middleware('auth');
+});
 
 Route::group(['as' => 'admin.', 'namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], function () {
 

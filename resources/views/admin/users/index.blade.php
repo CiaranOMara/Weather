@@ -50,8 +50,15 @@
                                         {{$user->updated_at}}
                                     </td>
                                     <td>
-                                        @include('actions.edit', ['action' =>route('admin.users.edit', ['user' => $user->id])])
-                                        @include('actions.delete', ['action' =>route('admin.users.destroy', ['user' => $user->id])])
+                                        {{-- Edit --}}
+                                        @can('update', $user)
+                                            @include('actions.edit', ['action' =>route('admin.users.edit', ['user' => $user->id])])
+                                        @endcan
+
+                                        {{-- Delete --}}
+                                        @can('delete', $user)
+                                            @include('actions.delete', ['action' =>route('admin.users.destroy', ['user' => $user->id])])
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

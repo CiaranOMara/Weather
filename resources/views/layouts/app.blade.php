@@ -63,6 +63,16 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
+                                <li class="{{ set_active('dashboard') }}"><a
+                                            href="{{ route('dashboard') }}">Dashboard</a></li>
+
+                                @role('admin|moderator')
+                                <li class="{{ set_active('trigger*') }}"><a
+                                            href="{{ route('triggers.index') }}">Triggers</a></li>
+                                @endrole
+
+                                <li role="presentation" class="divider"></li>
+
                                 @role('admin')
 
                                 <li class="dropdown-header">

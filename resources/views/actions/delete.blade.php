@@ -4,7 +4,11 @@
 
     {{ method_field('DELETE') }}
 
-    <button type="submit" class="btn btn-xs btn-danger" aria-label="{{$tip or 'Delete'}}" data-toggle="tooltip" data-placement="auto bottom" title="{{$tip or 'Delete'}}">
+    <button type="submit" class="btn btn-xs btn-danger"
+            aria-label="{{$tip or 'Delete'}}"
+            data-toggle="tooltip"
+            data-placement="auto bottom"
+            title="{{$tip or 'Delete'}}">
         <i class="fa fa-trash-o" aria-hidden="true"></i>
     </button>
 

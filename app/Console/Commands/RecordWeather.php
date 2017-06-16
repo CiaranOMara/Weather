@@ -2,25 +2,27 @@
 
 namespace App\Console\Commands;
 
-use App\Events\TemperatureWasLogged;
+use App\Events\ReceivedHumidityRecord;
+use App\Events\ReceivedTemperatureRecord;
+use App\Humidity;
 use App\Temperature;
 use Illuminate\Console\Command;
 
-class LogTemperature extends Command
+class RecordWeather extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'log:temperature {value}';
+    protected $signature = 'record:weather {humidity} {temperature}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Log temperature.';
+    protected $description = 'Record humidity and temperature';
 
     /**
      * Create a new command instance.
@@ -39,10 +41,14 @@ class LogTemperature extends Command
      */
     public function handle()
     {
-        $temperature = Temperature::create([
-            'value' => $this->argument('value')
+
+        $humidity = Humidity::create([
+            'value' => $this->argument('humidity')
         ]);
 
-        event(new TemperatureWasLogged($temperature));
+        $temperature = Temperature::create([
+            'value' => $this->argument('temperature')
+        ]);
+
     }
 }
