@@ -57,16 +57,32 @@
                                         {{$watcher->updated_at}}
                                     </td>
                                     <td>
-                                        @include('actions.edit', ['action' =>route('watchers.edit', ['watcher' => $watcher->id])])
-                                        @include('actions.delete', ['action' =>route('watchers.destroy', ['watcher' => $watcher->id])])
+                                        {{-- Subscribe/Un-subscribe --}}
+                                        @if(false !== array_search($watcher->id, $user_watcher_ids))
+                                            @include('actions.unsubscribe', ['action' =>route('watchers.users.destroy', ['watcher'=>$watcher->id, 'user'=>Auth::user()->id])])
+                                        @else
+                                            @include('actions.subscribe', ['action' =>route('watchers.users.store', ['watcher' => $watcher->id])])
+                                        @endif
+
+                                        {{-- Edit --}}
+                                        @can('update', $watcher)
+                                            @include('actions.edit', ['action' =>route('watchers.edit', ['watcher' => $watcher->id])])
+                                        @endcan
+
+                                        {{-- Delete --}}
+                                        @can('delete', $watcher)
+                                            @include('actions.delete', ['action' =>route('watchers.destroy', ['watcher' => $watcher->id])])
+                                        @endcan
+
                                     </td>
                                 </tr>
                             @endforeach
                             </tbody>
                         </table>
                     @else
-                        <div class="panel-body"><p class="text-center text-warning"><strong>There are no configured
-                                    watchers.</strong></p></div>
+                        <div class="panel-body">
+                            <p class="text-center text-warning">There are no configured watchers.</p>
+                        </div>
                     @endif
                 </div>
             </div>

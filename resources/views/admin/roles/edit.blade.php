@@ -85,8 +85,14 @@
                                         {{$permission->updated_at}}
                                     </td>
                                     <td>
-                                        @include('actions.edit', ['action' => route('admin.permissions.edit', ['permission'=>$permission->id])])
-                                        @include('actions.delete', ['tip'=>'Remove from role','action' => route('admin.roles.permissions.destroy', ['role'=>$role->id, 'permission'=>$permission->id])])
+                                        {{-- Edit --}}
+                                        @can('update', $permission)
+                                            @include('actions.edit', ['action' => route('admin.permissions.edit', ['permission'=>$permission->id])])
+                                        @endcan
+                                        {{-- Detach --}}
+                                        @can('detachPermission', [$role, $permission])
+                                            @include('actions.unsubscribe', ['tip'=>'Remove from role','action' => route('admin.roles.permissions.destroy', ['role'=>$role->id, 'permission'=>$permission->id])])
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach
@@ -113,7 +119,6 @@
                                     </select>
 
                                 </div>
-
 
                                 <div class="form-group">
                                     <div class="col-sm-offset-4">

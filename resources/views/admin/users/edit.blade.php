@@ -86,8 +86,15 @@
                                         {{$role->updated_at}}
                                     </td>
                                     <td>
-                                        @include('actions.edit', ['action' => route('admin.roles.edit', ['role'=>$role->id])])
-                                        @include('actions.delete', ['tip'=>'Remove from user','action' => route('admin.users.roles.destroy', ['user'=>$user->id, 'role'=>$role->id])])
+                                        {{-- Edit --}}
+                                        @can('update', $role)
+                                            @include('actions.edit', ['action' => route('admin.roles.edit', ['role'=>$role->id])])
+                                        @endcan
+
+                                        {{-- Detach --}}
+                                        @can('detachRole', [$user,$role])
+                                            @include('actions.unsubscribe', ['tip'=>'Remove role from user','action' => route('admin.users.roles.destroy', ['user'=>$user->id, 'role'=>$role->id])])
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach
@@ -181,7 +188,10 @@
                                         {{$permission->updated_at}}
                                     </td>
                                     <td>
-                                        @include('actions.edit', ['action' => route('admin.permissions.edit', ['permission'=>$permission->id])])
+                                        {{-- Edit --}}
+                                        @can('update', $permission)
+                                            @include('actions.edit', ['action' => route('admin.permissions.edit', ['permission'=>$permission->id])])
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach
@@ -210,8 +220,16 @@
                                         {{$permission->updated_at}}
                                     </td>
                                     <td>
-                                        @include('actions.edit', ['action' => route('admin.permissions.edit', ['permission'=>$permission->id])])
-                                        @include('actions.delete', ['tip'=>'Remove from user','action' => route('admin.users.permissions.destroy', ['user'=>$user->id, 'permission'=>$permission->id])])
+                                        {{-- Edit --}}
+                                        @can('update', $permission)
+                                            @include('actions.edit', ['action' => route('admin.permissions.edit', ['permission'=>$permission->id])])
+                                        @endcan
+
+                                        {{-- Detach --}}
+                                        @can('detachPermission', [$user,$permission])
+                                            @include('actions.unsubscribe', ['tip'=>'Remove permission from user','action' => route('admin.users.permissions.destroy', ['user'=>$user->id, 'permission'=>$permission->id])])
+                                        @endcan
+
                                     </td>
                                 </tr>
                             @endforeach

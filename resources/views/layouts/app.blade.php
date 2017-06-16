@@ -63,8 +63,8 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li class="{{ set_active('home') }}"><a
-                                            href="{{ url('/home') }}">Dashboard</a></li>
+                                <li class="{{ set_active('dashboard') }}"><a
+                                            href="{{ route('dashboard') }}">Dashboard</a></li>
 
                                 @role('admin|moderator')
                                 <li class="{{ set_active('watcher*') }}"><a

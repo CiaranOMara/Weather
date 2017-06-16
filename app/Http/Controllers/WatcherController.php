@@ -6,6 +6,7 @@ use App\Policies\WatcherPolicy;
 use App\User;
 use App\Watcher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Laracasts\Flash\Flash;
 
@@ -20,7 +21,10 @@ class WatcherController extends Controller
     {
         $this->authorize('view', Watcher::class);
 
-        $data = ['watchers' => Watcher::all()];
+        $data = [
+            'watchers' => Watcher::with('creator')->get(),
+            'user_watcher_ids' => Auth::user()->watchers->pluck('id')->toArray()
+        ];
 
         return view('watchers.index')->with($data);
     }

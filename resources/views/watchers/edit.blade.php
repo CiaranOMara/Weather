@@ -70,7 +70,7 @@
                                     </td>
 
                                     <td>
-                                        @include('actions.delete', ['tip'=>'Un-subscribe user','action' => route('watchers.users.destroy', ['watcher'=>$watcher->id, 'user'=>$user->id])])
+                                        @include('actions.unsubscribe', ['tip'=>'Un-subscribe user','action' =>route('watchers.users.destroy', ['watcher'=>$watcher->id, 'user'=>$user->id])])
                                     </td>
                                 </tr>
                             @endforeach
@@ -80,6 +80,7 @@
 
 
                     @if($users->count() > 0)
+                        @permission('watchers.attach.user')
                         <div class="panel-body">
 
                             <h4>Subscribe User</h4>
@@ -99,7 +100,6 @@
 
                                 </div>
 
-
                                 <div class="form-group">
                                     <div class="col-sm-offset-4">
                                         <button type="submit" class="btn btn-primary">
@@ -111,6 +111,7 @@
                             </form>
 
                         </div>
+                        @endpermission
                     @endif
                 </div>
             </div>

@@ -54,8 +54,15 @@
                                         {{$permission->updated_at}}
                                     </td>
                                     <td>
-                                        @include('actions.edit', ['action' =>route('admin.permissions.edit', ['permission' => $permission->id])])
-                                        @include('actions.delete', ['action' =>route('admin.permissions.destroy', ['permission' => $permission->id])])
+                                        {{-- Edit --}}
+                                        @can('update', $permission)
+                                            @include('actions.edit', ['action' =>route('admin.permissions.edit', ['permission' => $permission->id])])
+                                        @endcan
+
+                                        {{-- Delete --}}
+                                        @can('delete', $permission)
+                                            @include('actions.delete', ['action' =>route('admin.permissions.destroy', ['permission' => $permission->id])])
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach
