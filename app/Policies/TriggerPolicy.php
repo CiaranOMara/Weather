@@ -21,7 +21,7 @@ class TriggerPolicy
     {
         $isAttached = $trigger ? $trigger->users()->where('users.id', $user->id)->count() : false;
 
-        return $user->hasPermission('triggers.view') || $user->id === $trigger->creator || $isAttached;
+        return $user->hasPermission('triggers.view') || $user->id === $trigger->creator_id || $isAttached;
     }
 
     /**
@@ -44,7 +44,7 @@ class TriggerPolicy
      */
     public function update(User $user, Trigger $trigger)
     {
-        return $user->id === $trigger->creator || $user->hasPermission('triggers.update');
+        return $user->id === $trigger->creator_id || $user->hasPermission('triggers.update');
 
     }
 
@@ -57,7 +57,7 @@ class TriggerPolicy
      */
     public function delete(User $user, Trigger $trigger)
     {
-        return $user->id === $trigger->creator || $user->hasPermission('triggers.delete');
+        return $user->id === $trigger->creator_id || $user->hasPermission('triggers.delete');
     }
 
     /**
