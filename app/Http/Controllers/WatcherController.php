@@ -48,8 +48,8 @@ class WatcherController extends Controller
 
         $user_id = $request->user()->id;
 
-        if (!$request->has('created_by')) {
-            $request->merge(['created_by' => $user_id]);
+        if (!$request->has('creator_id')) {
+            $request->merge(['creator_id' => $user_id]);
         }
 
         $this->validate($request, [
@@ -57,7 +57,7 @@ class WatcherController extends Controller
             'condition' => ['required', Rule::in(array_keys(Watcher::$conditions))],
             'trigger_value' => 'required|numeric',
             'observing' => ['required', Rule::in(array_keys(Watcher::$models))],
-            'created_by' => 'required|integer',
+            'creator_id' => 'required|integer|exists:users,id',
         ]);
 
 
@@ -117,8 +117,8 @@ class WatcherController extends Controller
 
         $user_id = $request->user()->id;
 
-        if (!$request->has('created_by')) {
-            $request->merge(['created_by' => $user_id]);
+        if (!$request->has('creator_id')) {
+            $request->merge(['creator_id' => $user_id]);
         }
 
         $this->validate($request, [
@@ -126,7 +126,7 @@ class WatcherController extends Controller
             'condition' => ['required', Rule::in(array_keys(Watcher::$conditions))],
             'trigger_value' => 'required|numeric',
             'observing' => ['required', Rule::in(array_keys(Watcher::$models))],
-            'created_by' => 'required|integer',
+            'creator_id' => 'required|integer|exists:users,id',
         ]);
 
         $watcher->fill($request->all());

@@ -22,8 +22,8 @@ class CreateWatchersTable extends Migration
             $table->float('trigger_value');
 
             $table->string('observing');
-            $table->integer('created_by')->unsigned()->nullable();
-            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
+            $table->integer('creator_id')->unsigned()->nullable();
+            $table->foreign('creator_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

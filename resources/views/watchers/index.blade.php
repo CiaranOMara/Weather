@@ -24,7 +24,7 @@
                                 <th>Trigger Condition</th>
                                 <th>Trigger Value</th>
                                 <th>Observing</th>
-                                <th>Created By</th>
+                                <th>Creator</th>
                                 <th>Updated</th>
                                 <th>Actions</th>
                             </tr>
@@ -39,7 +39,7 @@
                                         {{$watcher->description}}
                                     </td>
                                     <td>
-                                        {{$watcher->trigger_condition}}
+                                        {{$watcher->condition}}
                                     </td>
                                     <td>
                                         {{$watcher->trigger_value}}
@@ -48,7 +48,7 @@
                                         {{$watcher->observing}}
                                     </td>
                                     <td>
-                                        {{$watcher->created_by}}
+                                        {{$watcher->creator->name}}
                                     </td>
                                     <td>
                                         {{$watcher->created_at}}
