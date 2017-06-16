@@ -18,7 +18,7 @@ class RolePolicy
      * @param  \App\Role $role
      * @return mixed
      */
-    public function view(User $user, Role $role = null)
+    public function view(User $user)
     {
         return $user->hasPermission('roles.view');
     }
@@ -70,7 +70,6 @@ class RolePolicy
      * Determine whether the user can attach permission.
      *
      * @param  \App\User $user
-     * @param  \App\User $user
      * @return mixed
      */
     public function attachPermission(User $user)
@@ -82,7 +81,8 @@ class RolePolicy
      * Determine whether the user can detach permission.
      *
      * @param  \App\User $user
-     * @param  \App\User $user
+     * @param  \App\Role $role
+     * @param  \App\Permission $permission
      * @return mixed
      */
     public function detachPermission(User $user, Role $role, Permission $permission)

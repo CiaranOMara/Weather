@@ -13,7 +13,7 @@ class UserPolicy
      * Determine whether the user can view the user.
      *
      * @param  \App\User $user
-     * @param  \App\User $user
+     * @param  \App\User $model
      * @return mixed
      */
     public function view(User $user, User $model = null)
@@ -48,7 +48,7 @@ class UserPolicy
      * Determine whether the user can delete the user.
      *
      * @param  \App\User $user
-     * @param  \App\User $user
+     * @param  \App\User $model
      * @return mixed
      */
     public function delete(User $user, User $model)
@@ -63,7 +63,8 @@ class UserPolicy
      * @param  \App\User $user
      * @return mixed
      */
-    public function attachPermission(User $user){
+    public function attachPermission(User $user)
+    {
         return $user->hasPermission('users.attach.permission');
     }
 
@@ -74,7 +75,8 @@ class UserPolicy
      * @param  \App\User $user
      * @return mixed
      */
-    public function detachPermission(User $user){
+    public function detachPermission(User $user)
+    {
         return $user->hasPermission('users.detach.permission');
     }
 
@@ -82,10 +84,10 @@ class UserPolicy
      * Determine whether the user can attach role.
      *
      * @param  \App\User $user
-     * @param  \App\User $user
      * @return mixed
      */
-    public function attachRole(User $user){
+    public function attachRole(User $user)
+    {
         return $user->hasPermission('users.attach.role');
     }
 
@@ -93,10 +95,11 @@ class UserPolicy
      * Determine whether the user can detach role.
      *
      * @param  \App\User $user
-     * @param  \App\User $user
      * @return mixed
      */
-    public function detachRole(User $user){
+    public function detachRole(User $user)
+    {
         return $user->hasPermission('users.detach.role');
     }
+
 }
