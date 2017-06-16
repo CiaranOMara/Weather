@@ -43,7 +43,7 @@ class HumidityTest extends TestCase
 
         $value = 12349;
 
-        $exitCode = Artisan::call('log:humidity', [
+        $exitCode = Artisan::call('record:humidity', [
             'value' => $value
         ]);
 

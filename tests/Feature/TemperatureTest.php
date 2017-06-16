@@ -43,7 +43,7 @@ class TemperatureTest extends TestCase
 
         $value = 12349;
 
-        $exitCode = Artisan::call('log:temperature', [
+        $exitCode = Artisan::call('record:temperature', [
             'value' => $value
         ]);
 
