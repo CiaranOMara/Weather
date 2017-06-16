@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Events\TemperatureWasLogged;
+use App\Events\ReceivedTemperatureRecord;
 use App\Temperature;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Event;
@@ -47,7 +47,7 @@ class TemperatureTest extends TestCase
             'value' => $value
         ]);
 
-        Event::assertDispatched(TemperatureWasLogged::class, function ($e) use ($value) {
+        Event::assertDispatched(ReceivedTemperatureRecord::class, function ($e) use ($value) {
             return $e->temperature->value === $value;
         });
 

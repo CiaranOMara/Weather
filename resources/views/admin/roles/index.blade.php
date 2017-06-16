@@ -54,8 +54,14 @@
                                         {{$role->updated_at}}
                                     </td>
                                     <td>
-                                        @include('actions.edit', ['action' =>route('admin.roles.edit', ['role' => $role->id])])
-                                        @include('actions.delete', ['action' =>route('admin.roles.destroy', ['role' => $role->id])])
+                                        {{-- Edit --}}
+                                        @can('update', $role)
+                                            @include('actions.edit', ['action' =>route('admin.roles.edit', ['role' => $role->id])])
+                                        @endcan
+                                        {{-- Delete --}}
+                                        @can('delete', $role)
+                                            @include('actions.delete', ['action' =>route('admin.roles.destroy', ['role' => $role->id])])
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

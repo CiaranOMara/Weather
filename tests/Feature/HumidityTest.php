@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Events\HumidityWasLogged;
+use App\Events\ReceivedHumidityRecord;
 use App\Humidity;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Event;
@@ -47,7 +47,7 @@ class HumidityTest extends TestCase
             'value' => $value
         ]);
 
-        Event::assertDispatched(HumidityWasLogged::class, function ($e) use ($value) {
+        Event::assertDispatched(ReceivedHumidityRecord::class, function ($e) use ($value) {
             return $e->humidity->value === $value;
         });
 

@@ -46,7 +46,12 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        if ($exception instanceof AuthorizationException || $exception instanceof \App\Exceptions\RoleDeniedException) {
+        if ($exception instanceof AuthorizationException) {
+            Flash::warning('Sorry, we could not service your request. You are not authorised.');
+            return redirect()->back();
+        }
+
+        if ($exception instanceof \App\Exceptions\RoleDeniedException) {
             Flash::warning('Sorry, we could not service your request. You are not authorised.');
             return redirect()->back();
         }

@@ -6,20 +6,20 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-name">Edit Role</h3>
+                        <h3 class="panel-name">Edit Trigger</h3>
                     </div>
 
                     <div class="panel-body">
                         @include('errors.list')
 
                         <form class="form-horizontal" role="form" method="POST"
-                              action="{{ route('admin.roles.update', ['role' => $role->id]) }}">
+                              action="{{ route('triggers.update', ['trigger' => $trigger->id]) }}">
 
                             {{ method_field('PATCH') }}
 
                             {{ csrf_field() }}
 
-                            @include('admin.roles.fields', $role->toArray())
+                            @include('triggers.fields', $trigger->toArray())
 
                             {{-- Submit Field --}}
                             <div class="form-group">
@@ -27,7 +27,7 @@
                                     <button type="submit" class="btn btn-primary">
                                         Update
                                     </button>
-                                    <a class="btn btn-default" href="{{route('admin.roles.index')}}">Cancel</a>
+                                    <a class="btn btn-default" href="{{route('triggers.index')}}">Cancel</a>
                                 </div>
                             </div>
 
@@ -42,57 +42,35 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-name">Role's Permissions</h3>
+                        <h3 class="panel-name">Subscribed Users</h3>
                     </div>
 
 
-                    @if($role->permissions->count() > 0)
+                    @if($trigger->users->count() > 0)
                         <table class="table table-condensed table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th>Id</th>
                                 <th>Name</th>
-                                <th>Slug</th>
-                                <th>Description</th>
-                                <th>Model</th>
-                                <th>Created</th>
-                                <th>Updated</th>
+                                <th>Email</th>
+                                <th>Subscribed</th>
                                 <th>Actions</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($role->permissions as $permission)
+                            @foreach($trigger->users as $user)
                                 <tr>
-                                    <th>
-                                        {{$permission->id}}
-                                    </th>
                                     <td>
-                                        {{$permission->name}}
+                                        {{$user->name}}
                                     </td>
                                     <td>
-                                        {{$permission->slug}}
+                                        {{$user->email}}
                                     </td>
                                     <td>
-                                        {{$permission->description}}
+                                        {{$user->created_at}}
                                     </td>
+
                                     <td>
-                                        {{$permission->model}}
-                                    </td>
-                                    <td>
-                                        {{$permission->created_at}}
-                                    </td>
-                                    <td>
-                                        {{$permission->updated_at}}
-                                    </td>
-                                    <td>
-                                        {{-- Edit --}}
-                                        @can('update', $permission)
-                                            @include('actions.edit', ['action' => route('admin.permissions.edit', ['permission'=>$permission->id])])
-                                        @endcan
-                                        {{-- Detach --}}
-                                        @can('detachPermission', [$role, $permission])
-                                            @include('actions.unsubscribe', ['tip'=>'Remove from role','action' => route('admin.roles.permissions.destroy', ['role'=>$role->id, 'permission'=>$permission->id])])
-                                        @endcan
+                                        @include('actions.unsubscribe', ['tip'=>'Un-subscribe user','action' =>route('triggers.users.destroy', ['trigger'=>$trigger->id, 'user'=>$user->id])])
                                     </td>
                                 </tr>
                             @endforeach
@@ -100,20 +78,22 @@
                         </table>
                     @endif
 
-                    @if($permissions->count() > 0)
+
+                    @if($users->count() > 0)
+                        @permission('triggers.attach.user')
                         <div class="panel-body">
 
-                            <h4>Add Permission</h4>
+                            <h4>Subscribe User</h4>
                             <form class="form-inline" role="form" method="POST"
-                                  action="{{ route('admin.roles.permissions.store', ['role' => $role->id]) }}">
+                                  action="{{ route('triggers.users.store', ['trigger' => $trigger->id]) }}">
 
                                 {{ csrf_field() }}
 
                                 <div class="form-group">
-                                    <select class="form-control" name="permission">
+                                    <select class="form-control" name="user">
 
-                                        @foreach ($permissions as $permission)
-                                            <option value="{{$permission->id}}">{{$permission->name}}</option>
+                                        @foreach ($users as $user)
+                                            <option value="{{$user->id}}">{{$user->name}}</option>
                                         @endforeach
 
                                     </select>
@@ -123,7 +103,7 @@
                                 <div class="form-group">
                                     <div class="col-sm-offset-4">
                                         <button type="submit" class="btn btn-primary">
-                                            Add permission
+                                            Add user
                                         </button>
                                     </div>
                                 </div>
@@ -131,6 +111,7 @@
                             </form>
 
                         </div>
+                        @endpermission
                     @endif
                 </div>
             </div>

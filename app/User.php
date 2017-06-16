@@ -58,6 +58,15 @@ class User extends Authenticatable
     }
 
     /**
+     * Role belongs to many users.
+     *
+     */
+    public function triggers()
+    {
+        return $this->belongsToMany(Trigger::class)->withTimestamps();
+    }
+
+    /**
      * Confirm the user.
      *
      * @return void
@@ -82,4 +91,13 @@ class User extends Authenticatable
         ];
     }
 
+    /**
+     * Route notifications for the mail channel.
+     *
+     * @return string
+     */
+    public function routeNotificationForMail()
+    {
+        return $this->email;
+    }
 }

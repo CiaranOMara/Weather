@@ -14,9 +14,9 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\SendSocketMessage::class,
-        Commands\LogHumidity::class,
-        Commands\LogTemperature::class,
-        Commands\LogWeather::class,
+        Commands\RecordHumidity::class,
+        Commands\RecordTemperature::class,
+        Commands\RecordWeather::class,
         Commands\QueryAM2315::class,
         Commands\RegisterAdministratorCommand::class,
     ];
