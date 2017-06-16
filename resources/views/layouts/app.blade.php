@@ -63,12 +63,15 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
+                                <li class="{{ set_active('home') }}"><a
+                                            href="{{ url('/home') }}">Dashboard</a></li>
+
                                 @role('admin|moderator')
                                 <li class="{{ set_active('watcher*') }}"><a
                                             href="{{ route('watchers.index') }}">Watchers</a></li>
+                                @endrole
 
                                 <li role="presentation" class="divider"></li>
-                                @endrole
 
                                 @role('admin')
 

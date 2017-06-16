@@ -50,10 +50,10 @@ class HighTemperatureResolved extends Notification
     {
         return (new MailMessage)
             ->success()
-            ->subject($this->subject)
-            ->line('The introduction to the notification.')
-            ->action('Notification Action', url('/'))
-            ->line('Thank you for using our application!');
+            ->subject("Ok: ".$this->subject)
+            ->line('High temperature resolved.')
+            ->action('Acknowledge', url(route('notifications.read', ['notification' => $this->id])));
+
     }
 
     /**
@@ -66,6 +66,7 @@ class HighTemperatureResolved extends Notification
     {
         return [
             'condition' => $this->subject,
+            'context' => 'success',
             'recorded_value' => $this->temperature->value,
             'trigger_value' => $this->watcher->trigger_value
         ];

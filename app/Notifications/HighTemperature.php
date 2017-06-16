@@ -50,10 +50,9 @@ class HighTemperature extends Notification
     {
         return (new MailMessage)
             ->error()
-            ->subject($this->subject)
-            ->line('The introduction to the notification.')
-            ->action('Notification Action', url('/'))
-            ->line('Thank you for using our application!');
+            ->subject("Problem: ".$this->subject)
+            ->line('Received a high temperature record!')
+            ->action('Acknowledge', url(route('notifications.read', ['notification' => $this->id])));
     }
 
     /**
@@ -66,6 +65,7 @@ class HighTemperature extends Notification
     {
         return [
             'condition' => $this->subject,
+            'context' => 'danger',
             'recorded_value' => $this->temperature->value,
             'trigger_value' => $this->watcher->trigger_value
         ];

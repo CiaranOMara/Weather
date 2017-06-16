@@ -50,10 +50,9 @@ class HighHumidity extends Notification
     {
         return (new MailMessage)
             ->error()
-            ->subject($this->subject)
-            ->line('The introduction to the notification.')
-            ->action('Notification Action', url('/'))
-            ->line('Thank you for using our application!');
+            ->subject("Problem: ".$this->subject)
+            ->line('Received a high humidity record!')
+            ->action('Acknowledge', url(route('notifications.read', ['notification' => $this->id])));
     }
 
     /**
@@ -66,6 +65,7 @@ class HighHumidity extends Notification
     {
         return [
             'condition' => $this->subject,
+            'context' => 'danger',
             'recorded_value' => $this->humidity->value,
             'trigger_value' => $this->watcher->trigger_value
         ];
