@@ -5,13 +5,13 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notification;
 
-class Watcher extends Model
+class Trigger extends Model
 {
 
     public static $conditions = ['High' => 'Greater than', 'Low' => 'Less than'];
     public static $models = ['Humidity' => 'Humidity', 'Temperature' => 'Temperature'];
 
-    protected $fillable = ['description', 'condition', 'trigger_value', 'observing', 'creator_id'];
+    protected $fillable = ['description', 'condition', 'value', 'observing', 'creator_id'];
 
     /**
      * Watcher belongs to many users.
@@ -37,7 +37,7 @@ class Watcher extends Model
         $previous = $model->newQuery()->where('id', '<', $model->id)->orderBy('id', 'desc')->first();
 
         // check if alert should be raised.
-        if ($this->triggered($model->value) && (!$previous || !$this->triggered($previous->value))) { //Note doesn't rigger if new and current.
+        if ($this->triggered($model->value) && (!$previous || !$this->triggered($previous->value))) { // Note: doesn't trigger if new and current.
 
             $this->raiseAlert($model);
 
@@ -57,13 +57,13 @@ class Watcher extends Model
     {
         switch ($this->condition) { // TODO: create classes and implement polymorphism.
             case 'High':
-                if ($value > $this->trigger_value) {
+                if ($value > $this->value) {
                     return true;
                 }
                 break;
 
             case 'Low':
-                if ($value < $this->trigger_value) {
+                if ($value < $this->value) {
                     return true;
                 }
                 break;

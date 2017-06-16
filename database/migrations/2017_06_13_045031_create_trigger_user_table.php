@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserWatcherTable extends Migration
+class CreateTriggerUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateUserWatcherTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_watcher', function (Blueprint $table) {
+        Schema::create('trigger_user', function (Blueprint $table) {
             $table->increments('id')->unsigned();
-            $table->integer('watcher_id')->unsigned()->index();
-            $table->foreign('watcher_id')->references('id')->on('watchers')->onDelete('cascade');
+            $table->integer('trigger_id')->unsigned()->index();
+            $table->foreign('trigger_id')->references('id')->on('triggers')->onDelete('cascade');
             $table->integer('user_id')->unsigned()->index();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
@@ -30,6 +30,6 @@ class CreateUserWatcherTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_watcher');
+        Schema::dropIfExists('trigger_user');
     }
 }

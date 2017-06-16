@@ -5,11 +5,11 @@
     <div class="col-md-6">
 
         <select class="form-control" name="observing">
-            @foreach (\App\Watcher::$models as $key => $value)
+            @foreach (\App\Trigger::$models as $key => $label)
                 <option value="{{$key}}"
                         @if((isset($observing) && $observing === $key ) or old('observing') === $key)selected="selected"@endif
                 >
-                    {{$value}}
+                    {{$label}}
                 </option>
             @endforeach
         </select>
@@ -30,11 +30,11 @@
 
         <select class="form-control" name="condition">
 
-            @foreach (\App\Watcher::$conditions as $key => $value)
+            @foreach (\App\Trigger::$conditions as $key => $label)
                 <option value="{{$key}}"
                         @if((isset($condition) && $condition === $key ) or old('condition') === $key)selected="selected"@endif
                 >
-                    {{$value}}
+                    {{$label}}
                 </option>
             @endforeach
 
@@ -49,17 +49,17 @@
 </div>
 
 
-{{-- trigger_value --}}
-<div class="form-group{{ $errors->has('trigger_value') ? ' has-error' : '' }}">
-    <label for="trigger_value" class="col-md-4 control-label">Trigger Value</label>
+{{-- value --}}
+<div class="form-group{{ $errors->has('value') ? ' has-error' : '' }}">
+    <label for="value" class="col-md-4 control-label">Trigger Value</label>
 
     <div class="col-md-6">
-        <input id="trigger_value" type="text" class="form-control" name="trigger_value"
-               value="{{ $trigger_value or old('trigger_value') }}">
+        <input id="value" type="text" class="form-control" name="value"
+               value="{{ $value or old('value') }}">
 
-        @if ($errors->has('trigger_value'))
+        @if ($errors->has('value'))
             <span class="help-block">
-                <strong>{{ $errors->first('trigger_value') }}</strong>
+                <strong>{{ $errors->first('value') }}</strong>
             </span>
         @endif
     </div>

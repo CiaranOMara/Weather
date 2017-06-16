@@ -3,7 +3,7 @@
 namespace App\Notifications;
 
 use App\Humidity;
-use App\Watcher;
+use App\Trigger;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -23,7 +23,7 @@ class HighHumidity extends Notification
      *
      * @return void
      */
-    public function __construct(Watcher $watcher, Humidity $humidity)
+    public function __construct(Trigger $watcher, Humidity $humidity)
     {
         $this->humidity = $humidity;
         $this->watcher = $watcher;

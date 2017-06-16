@@ -5,7 +5,7 @@ namespace App\Listeners;
 use App\Events\ReceivedHumidityRecord;
 use App\Notifications\HighHumidity;
 use App\Notifications\LowHumidity;
-use App\Watcher;
+use App\Trigger;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 

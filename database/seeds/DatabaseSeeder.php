@@ -12,7 +12,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(AuthorisationSeeder::class); // php artisan db:seed --class=AuthorisationSeeder
-        $this->call(WatcherAuthorisationSeeder::class); // php artisan db:seed --class=WatcherAuthorisationSeeder
+        $this->call(TriggerAuthorisationSeeder::class); // php artisan db:seed --class=WatcherAuthorisationSeeder
         $this->call(UsersTableSeeder::class);
     }
 }

@@ -6,18 +6,18 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-name">Create Watcher</h3>
+                        <h3 class="panel-name">Create Trigger</h3>
                     </div>
 
                     <div class="panel-body">
                         @include('errors.list')
 
                         <form class="form-horizontal" role="form" method="POST"
-                              action="{{ route('watchers.store') }}">
+                              action="{{ route('triggers.store') }}">
 
                             {{ csrf_field() }}
 
-                            @include('watchers.fields')
+                            @include('triggers.fields')
 
                             {{-- Submit Field --}}
                             <div class="form-group">
@@ -25,7 +25,7 @@
                                     <button type="submit" class="btn btn-primary">
                                         Create
                                     </button>
-                                    <a class="btn btn-default" href="{{route('watchers.index')}}">Cancel</a>
+                                    <a class="btn btn-default" href="{{route('triggers.index')}}">Cancel</a>
                                 </div>
                             </div>
 

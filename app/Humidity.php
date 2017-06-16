@@ -22,7 +22,7 @@ class Humidity extends Model
 
     public function signal() //TODO: move to tait or parent class.
     {
-        $watchers = Watcher::where('observing', class_basename(get_class($this)))->get();
+        $watchers = Trigger::where('observing', class_basename(get_class($this)))->get();
 
         foreach ($watchers as $watcher) {
             $watcher->observeSignal($this); //Note: observe is a static method of the model.

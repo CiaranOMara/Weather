@@ -67,8 +67,8 @@
                                             href="{{ route('dashboard') }}">Dashboard</a></li>
 
                                 @role('admin|moderator')
-                                <li class="{{ set_active('watcher*') }}"><a
-                                            href="{{ route('watchers.index') }}">Watchers</a></li>
+                                <li class="{{ set_active('trigger*') }}"><a
+                                            href="{{ route('triggers.index') }}">Triggers</a></li>
                                 @endrole
 
                                 <li role="presentation" class="divider"></li>

@@ -30,9 +30,9 @@ Route::group(['middleware' => ['auth']], function () {
         return redirect()->route('dashboard');
     })->name('home');
 
-    Route::post('watchers/{watcher}/users', 'WatcherController@attachUser')->name('watchers.users.store');
-    Route::delete('watchers/{watcher}/users/{user}', 'WatcherController@detachUser')->name('watchers.users.destroy');
-    Route::resource('watchers', 'WatcherController');
+    Route::post('triggers/{trigger}/users', 'TriggerController@attachUser')->name('triggers.users.store');
+    Route::delete('triggers/{trigger}/users/{user}', 'TriggerController@detachUser')->name('triggers.users.destroy');
+    Route::resource('triggers', 'TriggerController');
 
     Route::match(['get', 'patch'], 'notifications/{notification}', 'NotificationController@markAsRead')->name('notifications.read')->middleware('auth');
     Route::match(['get', 'patch'], 'notifications', 'NotificationController@markAllAsRead')->name('notifications.all')->middleware('auth');

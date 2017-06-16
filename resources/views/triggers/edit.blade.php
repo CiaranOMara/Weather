@@ -6,20 +6,20 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-name">Edit Watcher</h3>
+                        <h3 class="panel-name">Edit Trigger</h3>
                     </div>
 
                     <div class="panel-body">
                         @include('errors.list')
 
                         <form class="form-horizontal" role="form" method="POST"
-                              action="{{ route('watchers.update', ['watcher' => $watcher->id]) }}">
+                              action="{{ route('triggers.update', ['trigger' => $trigger->id]) }}">
 
                             {{ method_field('PATCH') }}
 
                             {{ csrf_field() }}
 
-                            @include('watchers.fields', $watcher->toArray())
+                            @include('triggers.fields', $trigger->toArray())
 
                             {{-- Submit Field --}}
                             <div class="form-group">
@@ -27,7 +27,7 @@
                                     <button type="submit" class="btn btn-primary">
                                         Update
                                     </button>
-                                    <a class="btn btn-default" href="{{route('watchers.index')}}">Cancel</a>
+                                    <a class="btn btn-default" href="{{route('triggers.index')}}">Cancel</a>
                                 </div>
                             </div>
 
@@ -46,7 +46,7 @@
                     </div>
 
 
-                    @if($watcher->users->count() > 0)
+                    @if($trigger->users->count() > 0)
                         <table class="table table-condensed table-bordered table-striped">
                             <thead>
                             <tr>
@@ -57,7 +57,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($watcher->users as $user)
+                            @foreach($trigger->users as $user)
                                 <tr>
                                     <td>
                                         {{$user->name}}
@@ -70,7 +70,7 @@
                                     </td>
 
                                     <td>
-                                        @include('actions.unsubscribe', ['tip'=>'Un-subscribe user','action' =>route('watchers.users.destroy', ['watcher'=>$watcher->id, 'user'=>$user->id])])
+                                        @include('actions.unsubscribe', ['tip'=>'Un-subscribe user','action' =>route('triggers.users.destroy', ['trigger'=>$trigger->id, 'user'=>$user->id])])
                                     </td>
                                 </tr>
                             @endforeach
@@ -80,12 +80,12 @@
 
 
                     @if($users->count() > 0)
-                        @permission('watchers.attach.user')
+                        @permission('triggers.attach.user')
                         <div class="panel-body">
 
                             <h4>Subscribe User</h4>
                             <form class="form-inline" role="form" method="POST"
-                                  action="{{ route('watchers.users.store', ['watcher' => $watcher->id]) }}">
+                                  action="{{ route('triggers.users.store', ['trigger' => $trigger->id]) }}">
 
                                 {{ csrf_field() }}
 

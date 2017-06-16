@@ -8,14 +8,14 @@
 
                     <div class="panel-heading"
                          style="display: flex; justify-content: space-between; align-items: center;">
-                        <h3 class="panel-name">Watchers</h3>
+                        <h3 class="panel-name">Triggers</h3>
 
-                        <a class="btn btn-default btn-sm" href="{{route('watchers.create')}}">
-                            <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Create new watcher
+                        <a class="btn btn-default btn-sm" href="{{route('triggers.create')}}">
+                            <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Create new trigger
                         </a>
                     </div>
 
-                    @if($watchers->count() > 0)
+                    @if($triggers->count() > 0)
                         <table class="table table-bordered table-condensed table-striped">
                             <thead>
                             <tr>
@@ -30,48 +30,48 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($watchers as $watcher)
+                            @foreach($triggers as $trigger)
                                 <tr>
                                     <th>
-                                        {{$watcher->id}}
+                                        {{$trigger->id}}
                                     </th>
                                     <td>
-                                        {{$watcher->description}}
+                                        {{$trigger->description}}
                                     </td>
                                     <td>
-                                        {{$watcher->condition}}
+                                        {{$trigger->condition}}
                                     </td>
                                     <td>
-                                        {{$watcher->trigger_value}}
+                                        {{$trigger->value}}
                                     </td>
                                     <td>
-                                        {{$watcher->observing}}
+                                        {{$trigger->observing}}
                                     </td>
                                     <td>
-                                        {{$watcher->creator->name}}
+                                        {{$trigger->creator->name}}
                                     </td>
                                     <td>
-                                        {{$watcher->created_at}}
+                                        {{$trigger->created_at}}
                                     </td>
                                     <td>
-                                        {{$watcher->updated_at}}
+                                        {{$trigger->updated_at}}
                                     </td>
                                     <td>
                                         {{-- Subscribe/Un-subscribe --}}
-                                        @if(false !== array_search($watcher->id, $user_watcher_ids))
-                                            @include('actions.unsubscribe', ['action' =>route('watchers.users.destroy', ['watcher'=>$watcher->id, 'user'=>Auth::user()->id])])
+                                        @if(false !== array_search($trigger->id, $user_trigger_ids))
+                                            @include('actions.unsubscribe', ['action' =>route('triggers.users.destroy', ['trigger'=>$trigger->id, 'user'=>Auth::user()->id])])
                                         @else
-                                            @include('actions.subscribe', ['action' =>route('watchers.users.store', ['watcher' => $watcher->id])])
+                                            @include('actions.subscribe', ['action' =>route('triggers.users.store', ['trigger' => $trigger->id])])
                                         @endif
 
                                         {{-- Edit --}}
-                                        @can('update', $watcher)
-                                            @include('actions.edit', ['action' =>route('watchers.edit', ['watcher' => $watcher->id])])
+                                        @can('update', $trigger)
+                                            @include('actions.edit', ['action' =>route('triggers.edit', ['trigger' => $trigger->id])])
                                         @endcan
 
                                         {{-- Delete --}}
-                                        @can('delete', $watcher)
-                                            @include('actions.delete', ['action' =>route('watchers.destroy', ['watcher' => $watcher->id])])
+                                        @can('delete', $trigger)
+                                            @include('actions.delete', ['action' =>route('triggers.destroy', ['trigger' => $trigger->id])])
                                         @endcan
 
                                     </td>
@@ -81,7 +81,7 @@
                         </table>
                     @else
                         <div class="panel-body">
-                            <p class="text-center text-warning">There are no configured watchers.</p>
+                            <p class="text-center text-warning">There are no configured triggers.</p>
                         </div>
                     @endif
                 </div>

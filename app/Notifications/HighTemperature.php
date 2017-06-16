@@ -3,7 +3,7 @@
 namespace App\Notifications;
 
 use App\Temperature;
-use App\Watcher;
+use App\Trigger;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -23,7 +23,7 @@ class HighTemperature extends Notification
      *
      * @return void
      */
-    public function __construct(Watcher $watcher, Temperature $temperature)
+    public function __construct(Trigger $watcher, Temperature $temperature)
     {
         $this->temperature = $temperature;
         $this->watcher = $watcher;
