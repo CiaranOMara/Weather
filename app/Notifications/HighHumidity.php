@@ -16,17 +16,17 @@ class HighHumidity extends Notification
     private $subject = 'High Humidity';
 
     public $humidity;
-    public $watcher;
+    public $trigger;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(Trigger $watcher, Humidity $humidity)
+    public function __construct(Trigger $trigger, Humidity $humidity)
     {
         $this->humidity = $humidity;
-        $this->watcher = $watcher;
+        $this->trigger = $trigger;
     }
 
     /**
@@ -67,7 +67,7 @@ class HighHumidity extends Notification
             'condition' => $this->subject,
             'context' => 'danger',
             'recorded_value' => $this->humidity->value,
-            'trigger_value' => $this->watcher->trigger_value
+            'trigger_value' => $this->trigger->value
         ];
     }
 }

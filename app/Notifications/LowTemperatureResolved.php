@@ -16,17 +16,17 @@ class LowTemperatureResolved extends Notification
     private $subject = 'Low Temperature Resolved';
 
     public $temperature;
-    public $watcher;
+    public $trigger;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(Trigger $watcher, Temperature $temperature)
+    public function __construct(Trigger $trigger, Temperature $temperature)
     {
         $this->temperature = $temperature;
-        $this->watcher = $watcher;
+        $this->trigger = $trigger;
     }
 
     /**
@@ -68,7 +68,7 @@ class LowTemperatureResolved extends Notification
             'condition' => $this->subject,
             'context' => 'success',
             'recorded_value' => $this->temperature->value,
-            'trigger_value' => $this->watcher->trigger_value
+            'trigger_value' => $this->trigger->value
         ];
     }
 }
