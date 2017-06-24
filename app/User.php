@@ -66,6 +66,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Trigger::class)->withTimestamps();
     }
 
+    public function setEmailAttribute($value)
+    {
+        $this->attributes['email'] = Str::lower($value);
+    }
+
     /**
      * Confirm the user.
      *
