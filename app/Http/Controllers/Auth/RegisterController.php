@@ -137,7 +137,7 @@ class RegisterController extends Controller
     {
         if ($user = User::where('verification_token', $token)->first()) {
 
-            // Prompt migrated user set password.
+            // Prompt user to set their password.
             if ($user->password == 'password') {
 
                 // Route user to modified reset password form.
