@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ config('app.locale') }}">
+<html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -52,59 +52,59 @@
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
-                    @if (Auth::guest())
+                    @guest
                         <li><a href="{{ route('login') }}">Login</a></li>
                         <li><a href="{{ route('register') }}">Register</a></li>
-                    @else
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                               aria-expanded="false">
-                                {{ Auth::user()->name }} <span class="caret"></span>
-                            </a>
+                        @else
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-expanded="false">
+                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                </a>
 
-                            <ul class="dropdown-menu" role="menu">
-                                <li class="{{ set_active('dashboard') }}"><a
-                                            href="{{ route('dashboard') }}">Dashboard</a></li>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li class="{{ set_active('dashboard') }}"><a
+                                                href="{{ route('dashboard') }}">Dashboard</a></li>
 
-                                @role('admin|moderator')
-                                <li class="{{ set_active('trigger*') }}"><a
-                                            href="{{ route('triggers.index') }}">Triggers</a></li>
-                                @endrole
+                                    @role('admin|moderator')
+                                    <li class="{{ set_active('trigger*') }}"><a
+                                                href="{{ route('triggers.index') }}">Triggers</a></li>
+                                    @endrole
 
-                                <li role="presentation" class="divider"></li>
+                                    <li role="presentation" class="divider"></li>
 
-                                @role('admin')
+                                    @role('admin')
 
-                                <li class="dropdown-header">
-                                    Admin Group
-                                </li>
+                                    <li class="dropdown-header">
+                                        Admin Group
+                                    </li>
 
-                                <li class="{{ set_active('admin/permission*') }}"><a
-                                            href="{{ route('admin.permissions.index') }}">Permissions</a></li>
-                                <li class="{{ set_active('admin/role*') }}"><a
-                                            href="{{ route('admin.roles.index') }}">Roles</a></li>
-                                <li class="{{ set_active('admin/user*') }}"><a
-                                            href="{{ route('admin.users.index') }}">Users</a></li>
+                                    <li class="{{ set_active('admin/permission*') }}"><a
+                                                href="{{ route('admin.permissions.index') }}">Permissions</a></li>
+                                    <li class="{{ set_active('admin/role*') }}"><a
+                                                href="{{ route('admin.roles.index') }}">Roles</a></li>
+                                    <li class="{{ set_active('admin/user*') }}"><a
+                                                href="{{ route('admin.users.index') }}">Users</a></li>
 
-                                <li role="presentation" class="divider"></li>
-                                @endrole
+                                    <li role="presentation" class="divider"></li>
+                                    @endrole
 
 
-                                <li>
-                                    <a href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
+                                    <li>
+                                        <a href="{{ route('logout') }}"
+                                           onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        Logout
-                                    </a>
+                                            Logout
+                                        </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                          style="display: none;">
-                                        {{ csrf_field() }}
-                                    </form>
-                                </li>
-                            </ul>
-                        </li>
-                    @endif
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                              style="display: none;">
+                                            {{ csrf_field() }}
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                            @endguest
                 </ul>
             </div>
         </div>
