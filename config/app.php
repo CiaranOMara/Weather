@@ -167,9 +167,6 @@ return [
         /*
          * Package Service Providers...
          */
-        Laravel\Tinker\TinkerServiceProvider::class,
-        Barryvdh\Debugbar\ServiceProvider::class,
-        Laracasts\Flash\FlashServiceProvider::class,
 
         /*
          * Application Service Providers...
