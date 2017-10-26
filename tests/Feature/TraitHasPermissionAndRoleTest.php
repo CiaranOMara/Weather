@@ -36,7 +36,7 @@ class TraitHasPermissionAndRoleTest extends TestCase
     public function testRolePermissions()
     {
 
-        $user = factory(User::class)->make();
+        $user = factory(User::class)->create();
         // roles
         $roles = new Collection([
             factory(Role::class)->create(),
