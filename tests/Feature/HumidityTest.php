@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Events\ReceivedHumidityRecord;
 use App\Humidity;
+use App\Listeners\ProcessHumidityRecord;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
@@ -39,7 +40,11 @@ class HumidityTest extends TestCase
     public function testLog()
     {
 
-        Event::fake();
+//        Event::fake();
+
+
+        $listener = \Mockery::spy(ProcessHumidityRecord::class);
+        app()->instance(ProcessHumidityRecord::class, $listener);
 
         $value = 12349;
 
@@ -47,14 +52,18 @@ class HumidityTest extends TestCase
             'value' => $value
         ]);
 
-        Event::assertDispatched(ReceivedHumidityRecord::class, function ($e) use ($value) {
-            return $e->humidity->value === $value;
-        });
 
         $this->assertDatabaseHas('humidities', [
             'value' => $value
         ]);
 
+        $listener->shouldHaveReceived('handle')->with(\Mockery::on(function($event) use ($value){
+            return $event->humidity->value === $value;
+        }))->once();
+
+//        Event::assertDispatched(ReceivedHumidityRecord::class, function ($event) use ($value) {
+//            return $event->humidity->value === $value;
+//        });
 
     }
 }
