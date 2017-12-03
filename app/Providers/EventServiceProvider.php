@@ -16,81 +16,81 @@ class EventServiceProvider extends ServiceProvider
 
         // Recording Events
 
-        'App\Events\ReceivedHumidityRecord' => [
-            'App\Listeners\ProcessHumidityRecord',
+        \App\Events\ReceivedHumidityRecord::class => [
+            \App\Listeners\ProcessHumidityRecord::class,
         ],
 
-        'App\Events\ReceivedTemperatureRecord' => [
-            'App\Listeners\ProcessTemperatureRecord',
+        \App\Events\ReceivedTemperatureRecord::class => [
+            \App\Listeners\ProcessTemperatureRecord::class,
         ],
 
         // Administrative Events
 
-        'App\Events\AdminCreatedUser' => [
-            'App\Listeners\SendVerificationRequestFromAdministrator',
+        \App\Events\AdminCreatedUser::class => [
+            \App\Listeners\SendVerificationRequestFromAdministrator::class,
         ],
 
         // Authentication Events
 
-        'Illuminate\Auth\Events\Registered' => [
-            'App\Listeners\LogRegisteredUser',
-            'App\Listeners\SendVerificationRequest',
+        \Illuminate\Auth\Events\Registered::class => [
+            \App\Listeners\LogRegisteredUser::class,
+            \App\Listeners\SendVerificationRequest::class,
         ],
 
-        'Illuminate\Auth\Events\Attempting' => [
-            'App\Listeners\LogAuthenticationAttempt',
+        \Illuminate\Auth\Events\Attempting::class => [
+            \App\Listeners\LogAuthenticationAttempt::class,
         ],
 
-        'Illuminate\Auth\Events\Authenticated' => [
-            'App\Listeners\LogAuthenticated',
+        \Illuminate\Auth\Events\Authenticated::class => [
+            \App\Listeners\LogAuthenticated::class,
         ],
 
-        'Illuminate\Auth\Events\Login' => [
-            'App\Listeners\LogSuccessfulLogin',
+        \Illuminate\Auth\Events\Login::class => [
+            \App\Listeners\LogSuccessfulLogin::class,
         ],
 
-        'Illuminate\Auth\Events\Failed' => [
-            'App\Listeners\LogFailedLogin',
+        \Illuminate\Auth\Events\Failed::class => [
+            \App\Listeners\LogFailedLogin::class,
         ],
 
-        'Illuminate\Auth\Events\Logout' => [
-            'App\Listeners\LogSuccessfulLogout',
+        \Illuminate\Auth\Events\Logout::class => [
+            \App\Listeners\LogSuccessfulLogout::class,
         ],
 
-        'Illuminate\Auth\Events\Lockout' => [
-            'App\Listeners\LogLockout',
+        \Illuminate\Auth\Events\Lockout::class => [
+            \App\Listeners\LogLockout::class,
         ],
 
         // Cache events.
 
-        'Illuminate\Cache\Events\CacheHit' => [
-            'App\Listeners\LogCacheHit',
+        \Illuminate\Cache\Events\CacheHit::class => [
+            \App\Listeners\LogCacheHit::class,
         ],
 
-        'Illuminate\Cache\Events\CacheMissed' => [
-            'App\Listeners\LogCacheMissed',
+        \Illuminate\Cache\Events\CacheMissed::class => [
+            \App\Listeners\LogCacheMissed::class,
         ],
 
-        'Illuminate\Cache\Events\KeyForgotten' => [
-            'App\Listeners\LogKeyForgotten',
+        \Illuminate\Cache\Events\KeyForgotten::class => [
+            \App\Listeners\LogKeyForgotten::class,
         ],
 
-        'Illuminate\Cache\Events\KeyWritten' => [
-            'App\Listeners\LogKeyWritten',
+        \Illuminate\Cache\Events\KeyWritten::class => [
+            \App\Listeners\LogKeyWritten::class,
         ],
 
 
         // Message events.
 
-        'Illuminate\Mail\Events\MessageSending' => [
-            'App\Listeners\LogSentMessage',
+        \Illuminate\Mail\Events\MessageSending::class => [
+            \App\Listeners\LogSentMessage::class,
         ],
 
 
         // Notification events.
 
-        'Illuminate\Notifications\Events\NotificationSent' => [
-            'App\Listeners\LogNotification',
+        \Illuminate\Notifications\Events\NotificationSent::class => [
+            \App\Listeners\LogNotification::class,
         ],
     ];
 
