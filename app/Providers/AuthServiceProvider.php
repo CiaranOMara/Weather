@@ -6,15 +6,13 @@ use App\Permission;
 use App\Policies\NotificationPolicy;
 use App\Policies\PermissionPolicy;
 use App\Policies\RolePolicy;
-use App\Policies\UserPolicy;
 use App\Policies\TriggerPolicy;
+use App\Policies\UserPolicy;
 use App\Role;
-use App\User;
 use App\Trigger;
-use Illuminate\Notifications\DatabaseNotification;
-use Illuminate\Notifications\Notification;
-use Illuminate\Support\Facades\Gate;
+use App\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Notifications\DatabaseNotification;
 
 class AuthServiceProvider extends ServiceProvider
 {

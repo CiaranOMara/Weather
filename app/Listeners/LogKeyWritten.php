@@ -27,6 +27,6 @@ class LogKeyWritten
      */
     public function handle(KeyWritten $event)
     {
-        Log::info("Key written:", ['value' => $event->value, 'minutes' => $event->minutes]);
+        Log::info("Key written:", ['value' => $event->value, 'seconds' => $event->seconds]);
     }
 }
