@@ -16,7 +16,7 @@ class Temperature extends Model
      *
      * @var array
      */
-    protected $events = [
+    protected $dispatchesEvents = [
         'created' => ReceivedTemperatureRecord::class,
     ];
 

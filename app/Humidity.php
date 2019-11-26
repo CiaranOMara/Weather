@@ -16,7 +16,7 @@ class Humidity extends Model
      *
      * @var array
      */
-    protected $events = [
+    protected $dispatchesEvents = [
         'created' => ReceivedHumidityRecord::class,
     ];
 
