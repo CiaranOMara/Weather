@@ -3,33 +3,32 @@
 @section('content')
     <div class="container">
         @role('admin|moderator')
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card mb-3">
 
-                    <div class="panel-heading"
-                         style="display: flex; justify-content: space-between; align-items: center;">
-                        <h3 class="panel-name">Notifications</h3>
+                    <div class="card-header">
+                        <h3 class="mb-0">Notifications</h3>
+                    </div>
 
                         @if(Auth::user()->unreadNotifications()->count() > 1)
                             <form role="form" method="POST" action="{{route('notifications.all')}}"
                                   style="display: inline-block">
 
-                                {{ csrf_field() }}
+                                @csrf
 
                                 {{ method_field('PATCH') }}
 
-                                <button type="submit" class="btn btn-sm btn-default">
+                                <button type="submit" class="btn btn-sm btn-secondary">
                                     <i class="fa fa-check" aria-hidden="true"></i>&nbsp;Acknowledge all notifications
                                 </button>
 
                             </form>
                         @endif
 
-                    </div>
 
                     @if(Auth::user()->unreadNotifications()->count() > 0)
-                        <table class="table table-condensed table-bordered table-striped">
+                        <table class="table table-bordered table-sm table-striped mb-0">
                             <thead>
                             <tr>
                                 <th>Condition</th>
@@ -57,7 +56,7 @@
 
                         </table>
                     @else
-                        <div class="panel-body">
+                        <div class="card-body">
                             <p class="text-center text-info">There are no notifications to acknowledge.</p>
                         </div>
                     @endif
@@ -67,12 +66,17 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
-                    <div class="panel-heading"><h3 class="panel-name">Acknowledged Notifications</h3></div>
+
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card mb-3">
+
+                    <div class="card-header">
+                        <h3 class="mb-0">Acknowledged Notifications</h3>
+                    </div>
+
                     @if(Auth::user()->readNotifications()->count() > 0)
-                        <table class="table table-condensed table-bordered table-striped">
+                        <table class="table table-bordered table-sm table-striped mb-0">
                             <thead>
                             <tr>
                                 <th>Condition</th>
@@ -98,8 +102,8 @@
                             </tbody>
                         </table>
                     @else
-                        <div class="panel-body">
-                            <p class="text-center text-info">No acknowledge notifications.</p>
+                        <div class="card-body">
+                            <p class="text-center text-info">There are no acknowledged notifications.</p>
                         </div>
                     @endif
 
