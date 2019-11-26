@@ -66,6 +66,10 @@ class EventServiceProvider extends ServiceProvider
             \App\Listeners\LogLockout::class,
         ],
 
+        \Illuminate\Auth\Events\PasswordReset::class => [
+            \App\Listeners\LogPasswordReset::class,
+        ],
+
         // Cache events.
 
         \Illuminate\Cache\Events\CacheHit::class => [

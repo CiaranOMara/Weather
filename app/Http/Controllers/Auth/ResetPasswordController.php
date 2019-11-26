@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class ResetPasswordController extends Controller
 {
@@ -21,7 +20,7 @@ class ResetPasswordController extends Controller
     */
 
     use ResetsPasswords {
-        reset as resetTrait;
+        credentials as traitCredentials;
     }
 
     /**
@@ -42,18 +41,32 @@ class ResetPasswordController extends Controller
     }
 
     /**
-     * Reset the given user's password.
+     * Get the response for a successful password reset.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
-    public function reset(Request $request)
+    protected function sendResetResponse(Request $request, $response)
     {
-        // Normalise email.
-        if ($email = $request->input('email', false)) {
-            $request->merge(['email' => Str::lower($email)]);
-        }
+        flash(trans($response))->success();
+        flash(__('messages.authenticated'))->success();
 
-        return $this->resetTrait($request);
+        return redirect($this->redirectPath());
     }
+
+//    /**
+//     * Get the password reset credentials from the request.
+//     *
+//     * @param \Illuminate\Http\Request $request
+//     * @return array
+//     */
+//    protected function credentials(Request $request)
+//    {
+//        $credentials = $this->traitCredentials($request);
+//
+//        $credentials['verified'] = true;
+//
+//        return $credentials;
+//    }
 }
