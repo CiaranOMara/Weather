@@ -4,10 +4,19 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
-use Laravel\Dusk\DuskServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        //
+    }
+
     /**
      * Bootstrap any application services.
      *
@@ -15,6 +24,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
+        // Blade directives.
         Blade::directive('role', function ($expression) {
             return "<?php if (Auth::check() && Auth::user()->hasRole({$expression})): ?>";
         });
@@ -47,17 +58,5 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('endallowed', function () {
             return '<?php endif; ?>';
         });
-    }
-
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        if ($this->app->environment('local', 'testing')) {
-            $this->app->register(DuskServiceProvider::class);
-        }
     }
 }
