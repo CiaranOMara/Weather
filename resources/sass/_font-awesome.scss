@@ -2,4 +2,5 @@
 $fa-font-path: "/fonts/"; // correct font-awesome font path
 $fa-font-size-base: $font-size-base;
 $fa-line-height-base: $line-height-base;
-@import "node_modules/font-awesome/scss/font-awesome";
+@import '~font-awesome/scss/font-awesome';
+

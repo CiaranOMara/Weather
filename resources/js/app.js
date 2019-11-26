@@ -8,17 +8,28 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-
 window.Chartist = require('chartist');
+
+/**
+ * The following block of code may be used to automatically register your
+ * Vue components. It will recursively scan this directory for the Vue
+ * components and automatically register them with their "basename".
+ *
+ * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
+ */
+
+// const files = require.context('./', true, /\.vue$/i);
+// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
+
+// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+
+Vue.component('chart', require('./components/Chart.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-
-
-Vue.component('chart', require('./components/Chart.vue'));
 
 const app = new Vue({
     el: '#app',
@@ -45,7 +56,7 @@ const app = new Vue({
         }
     },
     computed: {
-        latestHumidity(){
+        latestHumidity() {
             let data = _.get(this, 'humidity.series[0].data', null);
 
             console.debug('humidity data', data);
@@ -59,7 +70,7 @@ const app = new Vue({
             }
 
         },
-        latestTemperature(){
+        latestTemperature() {
             let data = _.get(this, 'temperature.series[0].data', null);
 
             console.debug('temperature data', data);
@@ -74,7 +85,7 @@ const app = new Vue({
         }
     },
     methods: {
-        listenMessage (message) {
+        listenMessage(message) {
 
             console.log("received: ", message);
 
@@ -82,7 +93,7 @@ const app = new Vue({
                 message
             );
         },
-        pushDatum(base, datum){
+        pushDatum(base, datum) {
             let date = moment.utc(datum.created_at).local().toDate();
 
             this[base].series[0].data.push({x: date, y: datum.value});
@@ -91,7 +102,7 @@ const app = new Vue({
             this[base].series[0].data.shift();
             this.pushDatum(base, datum);
         },
-        loadMessages(){
+        loadMessages() {
             //
         },
         loadHumidity() {
@@ -136,13 +147,13 @@ const app = new Vue({
                     console.log(error);
                 });
         },
-        load(){
+        load() {
             this.loadMessages(); //TODO
             this.loadHumidity();
             this.loadTemperature();
         }
     },
-    created () {
+    created() {
 
         this.load();
 
@@ -150,7 +161,7 @@ const app = new Vue({
         if (typeof io === "undefined") {
             alert('please check your laravel-echo-server status!');
         } else {
-            Echo.channel('message')
+            Echo.channel('weather_database_message')
                 .listen('SendMessageEvent', (e) => {
 
                     console.debug("Received SendMessageEvent:", e);
@@ -160,7 +171,7 @@ const app = new Vue({
                     }
                 });
 
-            Echo.channel('weather')
+            Echo.channel('weather_database_weather')
                 .listen('ReceivedHumidityRecord', (e) => {
 
                     console.debug("Received humidity record:", e);

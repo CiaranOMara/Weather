@@ -1,46 +1,17 @@
 window._ = require('lodash');
 
 /**
- * Polyfill the global environment to add Promise support for Internet Explorer.
- */
-require('es6-promise/auto');
-
-/*
- * Load Moment and define Moment locales.
- */
-window.moment = require('moment');
-window.moment.defineLocale('en-short', {
-    parentLocale: 'en',
-    relativeTime: {
-        future: "in %s",
-        past: "%s",
-        s: "1s",
-        m: "1m",
-        mm: "%dm",
-        h: "1h",
-        hh: "%dh",
-        d: "1d",
-        dd: "%dd",
-        M: "1 month ago",
-        MM: "%d months ago",
-        y: "1y",
-        yy: "%dy"
-    }
-});
-window.moment.locale('en');
-
-/**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
  * for JavaScript based Bootstrap features such as modals and tabs. This
  * code may be modified to fit the specific needs of your application.
  */
 
 try {
+    window.Popper = require('popper.js').default;
     window.$ = window.jQuery = require('jquery');
 
-    require('bootstrap-sass');
-} catch (e) {
-}
+    require('bootstrap');
+} catch (e) {}
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -74,7 +45,47 @@ if (token) {
 
 import Echo from 'laravel-echo'
 
+window.io = require('socket.io-client');
+
 window.Echo = new Echo({
     broadcaster: 'socket.io',
     host: window.location.hostname + ':6001'
 });
+
+// window.Pusher = require('pusher-js');
+
+// window.Echo = new Echo({
+//     broadcaster: 'pusher',
+//     key: process.env.MIX_PUSHER_APP_KEY,
+//     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
+//     encrypted: true
+// });
+
+/**
+ * Polyfill the global environment to add Promise support for Internet Explorer.
+ */
+require('es6-promise/auto');
+
+/*
+ * Load Moment and define Moment locales.
+ */
+window.moment = require('moment');
+window.moment.defineLocale('en-short', {
+    parentLocale: 'en',
+    relativeTime: {
+        future: "in %s",
+        past: "%s",
+        s: "1s",
+        m: "1m",
+        mm: "%dm",
+        h: "1h",
+        hh: "%dh",
+        d: "1d",
+        dd: "%dd",
+        M: "1 month ago",
+        MM: "%d months ago",
+        y: "1y",
+        yy: "%dy"
+    }
+});
+window.moment.locale('en');
