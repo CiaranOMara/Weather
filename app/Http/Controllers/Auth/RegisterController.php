@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Password;
-use Illuminate\Support\Facades\Validator;
+use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Str;
-use Laracasts\Flash\Flash;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
@@ -25,9 +22,7 @@ class RegisterController extends Controller
     |
     */
 
-    use RegistersUsers {
-        register as registerTrait;
-    }
+    use RegistersUsers;
 
     /**
      * Where to redirect users after registration.
@@ -49,123 +44,44 @@ class RegisterController extends Controller
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array $data
+     * @param array $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
-    }
-
-    /**
-     * Handle a registration request for the application.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function register(Request $request)
-    {
-        // Normalise email.
-        if ($email = $request->input('email', false)) {
-            $request->merge(['email' => Str::lower($email)]);
-        }
-
-        return $this->registerTrait($request);
     }
 
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array $data
-     * @return User
+     * @param array $data
+     * @return \App\User
      */
     protected function create(array $data)
     {
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+            'password' => Hash::make($data['password']),
         ]);
-    }
-
-    public function showSetPasswordForm()
-    {
-        return view('auth.passwords.set');
-    }
-
-    public function setPassword(Request $request)
-    {
-
-        $this->validate($request, [
-            'verification_token' => 'required',
-            'password' => 'required|string|min:6|confirmed',
-        ]);
-
-        if ($user = User::where('verification_token', $request->input('verification_token'))->first()) {
-
-            $user->password = bcrypt($request->input('password'));
-
-            $user->confirmEmail();
-
-            Log::info("Email address verified and password set:", ['email' => $user->email]);
-
-            Flash::success('Your email address has been verified and your password has been set.')->important();
-
-            $this->guard()->login($user);
-
-            return redirect($this->redirectPath());
-        }
-
-        Log::error("Email address verification token not found:", ['request' => $request->toArray()]);
-
-        Flash::error('Something went wrong.')->important();
-
-        return redirect()->route('login');
     }
 
     /**
-     * Confirm a user's email address.
+     * The user has been registered.
      *
-     * @param  string $token
+     * @param \Illuminate\Http\Request $request
+     * @param mixed $user
      * @return mixed
      */
-    public function confirmEmail($token)
+    protected function registered(Request $request, $user)
     {
-        if ($user = User::where('verification_token', $token)->first()) {
+        flash(__('messages.registered'))->success();
 
-            // Prompt user to set their password.
-            if ($user->password == 'password') {
-
-                // Route user to modified reset password form.
-                Flash::info("Please set your password.")->important();
-
-                return redirect()->route('password.set')->withInput([
-                    'verification_token' => $token,
-                ]);
-
-            }
-
-            $user->confirmEmail();
-
-            Log::info("Email address verified:", ['email' => $user->email]);
-
-            Flash::success('Your email address has now been verified')->important();
-
-            $this->guard()->login($user);
-
-            return redirect($this->redirectPath());
-
-        }
-
-        Log::info("Email address verification token not found:", ['token' => $token]); //Note: this will be a user error.
-
-        Flash::warning('Your email address may have already been verified. The token provided was not found and may have already been used.')->important();
-
-        return redirect()->route('login');
+        return redirect($this->redirectPath());
     }
-
 }

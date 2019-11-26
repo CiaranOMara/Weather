@@ -2,21 +2,20 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card mb-3">
 
-                    <div class="panel-heading"
-                         style="display: flex; justify-content: space-between; align-items: center;">
-                        <h3 class="panel-name">Roles</h3>
+                    <div class="card-header d-flex justify-content-between">
+                        <h3 class="mb-0">Roles</h3>
 
-                        <a class="btn btn-default btn-sm" href="{{route('admin.roles.create')}}">
+                        <a class="btn btn-secondary btn-sm align-self-center" href="{{route('admin.roles.create')}}">
                             <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Create new role
                         </a>
                     </div>
 
                     @if($roles->count() > 0)
-                        <table class="table table-condensed table-bordered table-striped">
+                        <table class="table table-bordered table-sm table-striped mb-0">
                             <thead>
                             <tr>
                                 <th>Id</th>

@@ -1,14 +1,14 @@
 <form role="form" method="POST" action="{{ $action }}" style="display: inline-block">
 
-    {{ csrf_field() }}
+    @csrf
 
     {{ method_field('DELETE') }}
 
-    <button type="submit" class="btn btn-xs btn-default"
-            aria-label="{{$tip or 'Un-subscribe'}}"
+    <button type="submit" class="btn btn-sm btn-secondary"
+            aria-label="{{$tip ?? 'Un-subscribe'}}"
             data-toggle="tooltip"
-            data-placement="auto bottom"
-            title="{{$tip or 'Un-subscribe'}}">
+            data-placement="auto"
+            title="{{$tip ?? 'Un-subscribe'}}">
         <i class="fa fa-minus-circle" aria-hidden="true"></i>
     </button>
 

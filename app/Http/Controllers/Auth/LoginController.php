@@ -5,7 +5,11 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+use Laracasts\Flash\Flash;
+use Laracasts\Flash\FlashNotifier;
+use Laracasts\Flash\LaravelSessionStore;
+use Laracasts\Flash\Message;
+
 
 class LoginController extends Controller
 {
@@ -21,7 +25,7 @@ class LoginController extends Controller
     */
 
     use AuthenticatesUsers {
-        login as loginTrait;
+        credentials as traitCredentials;
     }
 
     /**
@@ -42,19 +46,42 @@ class LoginController extends Controller
     }
 
     /**
-     * Handle a login request to the application.
+     * The user has been authenticated.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
      */
-    public function login(Request $request)
+    public function authenticated(Request $request, $user)
     {
-        // Normalise email.
-        if ($email = $request->input('email', false)) {
-            $request->merge(['email' => Str::lower($email)]);
-        }
+        flash(__('messages.authenticated'))->success();
 
-        return $this->loginTrait($request);
+        return redirect()->intended($this->redirectPath());
     }
 
+    /**
+     * The user has logged out of the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return mixed
+     */
+    protected function loggedOut(Request $request)
+    {
+        flash(__('messages.loggedout'))->success();
+    }
+
+//    /**
+//     * Get the needed authorization credentials from the request.
+//     *
+//     * @param  \Illuminate\Http\Request  $request
+//     * @return array
+//     */
+//    protected function credentials(Request $request)
+//    {
+//        $credentials = $this->traitCredentials($request);
+//
+//        $credentials['verified'] = true;
+//
+//        return $credentials;
+//    }
 }

@@ -20,9 +20,11 @@ class TriggerController extends Controller
     {
         $this->authorize('view', Trigger::class);
 
+        $user_triggers = Auth::user()->triggers;
+
         $data = [
             'triggers' => Trigger::with('creator')->get(),
-            'user_trigger_ids' => Auth::user()->triggers->pluck('id')->toArray()
+            'user_trigger_ids' => $user_triggers ? $user_triggers->modelKeys() : []
         ];
 
         return view('triggers.index')->with($data);

@@ -2,55 +2,59 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Set Password</div>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card mb-3">
 
-                    <div class="panel-body">
+                    <div class="card-header">
+                        <h3 class="mb-0">Set Password</h3>
+                    </div>
+
+                    <div class="card-body">
                         @if (session('status'))
                             <div class="alert alert-success">
                                 {{ session('status') }}
                             </div>
                         @endif
 
-                        <form class="form-horizontal" role="form" method="POST" action="{{ route('password.set') }}">
-                            {{ csrf_field() }}
+{{--                        <form class="form-horizontal" role="form" method="POST" action="{{ route('password.set') }}">--}}
+                        <form class="form-horizontal" role="form" method="POST" action="{{ $signed }}">
+                            @csrf
 
                             <input type="hidden" name="verification_token"
-                                   value="{{ $verification_token or old('verification_token') }}">
+                                   value="{{ $verification_token ?? old('verification_token') }}">
 
-                            <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                <label for="password" class="col-md-4 control-label">Password</label>
+                            <div class="form-group row">
+                                <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
 
                                 <div class="col-md-6">
-                                    <input id="password" type="password" class="form-control" name="password" required
+                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required
                                            autofocus>
 
-                                    @if ($errors->has('password'))
-                                        <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                    @endif
+                                    @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                                <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
+                            <div class="form-group row">
+                                <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Confirm Password</label>
                                 <div class="col-md-6">
-                                    <input id="password-confirm" type="password" class="form-control"
+                                    <input id="password-confirm" type="password" class="form-control @error('password_confirmation') is-invalid @enderror"
                                            name="password_confirmation" required>
 
-                                    @if ($errors->has('password_confirmation'))
-                                        <span class="help-block">
-                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
+                                    @error('password_confirmation')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
                                     </span>
-                                    @endif
+                                    @enderror
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <div class="col-md-6 col-md-offset-4">
+                            <div class="form-group row mb-0">
+                                <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
                                         Set Password
                                     </button>

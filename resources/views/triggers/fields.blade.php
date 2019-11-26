@@ -1,38 +1,38 @@
 {{-- observing --}}
-<div class="form-group{{ $errors->has('observing') ? ' has-error' : '' }}">
-    <label for="observing" class="col-md-4 control-label">Observing</label>
+<div class="form-group row">
+    <label for="observing" class="col-md-4 col-form-label text-md-right">Observing</label>
 
     <div class="col-md-6">
 
-        <select class="form-control" name="observing">
+        <select class="form-control @error('observing') is-invalid @enderror" name="observing">
             @foreach (\App\Trigger::$models as $key => $label)
                 <option value="{{$key}}"
-                        @if((isset($observing) && $observing === $key ) or old('observing') === $key)selected="selected"@endif
+                        @if((isset($observing) && $observing === $key ) ?? old('observing') === $key)selected="selected"@endif
                 >
                     {{$label}}
                 </option>
             @endforeach
         </select>
-        @if ($errors->has('observing'))
-            <span class="help-block">
-                <strong>{{ $errors->first('observing') }}</strong>
-            </span>
-        @endif
+        @error('observing')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
     </div>
 </div>
 
 
 {{-- condition --}}
-<div class="form-group{{ $errors->has('condition') ? ' has-error' : '' }}">
-    <label for="condition" class="col-md-4 control-label">Trigger Condition</label>
+<div class="form-group row">
+    <label for="condition" class="col-md-4 col-form-label text-md-right">Trigger Condition</label>
 
     <div class="col-md-6">
 
-        <select class="form-control" name="condition">
+        <select class="form-control @error('condition') is-invalid @enderror" name="condition">
 
             @foreach (\App\Trigger::$conditions as $key => $label)
                 <option value="{{$key}}"
-                        @if((isset($condition) && $condition === $key ) or old('condition') === $key)selected="selected"@endif
+                        @if((isset($condition) && $condition === $key ) ?? old('condition') === $key)selected="selected"@endif
                 >
                     {{$label}}
                 </option>
@@ -40,44 +40,44 @@
 
         </select>
 
-        @if ($errors->has('condition'))
-            <span class="help-block">
-                <strong>{{ $errors->first('condition') }}</strong>
-            </span>
-        @endif
+        @error('condition')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
     </div>
 </div>
 
 
 {{-- value --}}
-<div class="form-group{{ $errors->has('value') ? ' has-error' : '' }}">
-    <label for="value" class="col-md-4 control-label">Trigger Value</label>
+<div class="form-group row">
+    <label for="value" class="col-md-4 col-form-label text-md-right">Trigger Value</label>
 
     <div class="col-md-6">
-        <input id="value" type="text" class="form-control" name="value"
-               value="{{ $value or old('value') }}">
+        <input id="value" type="text" class="form-control @error('value') is-invalid @enderror" name="value"
+               value="{{ $value ?? old('value') }}" autofocus>
 
-        @if ($errors->has('value'))
-            <span class="help-block">
-                <strong>{{ $errors->first('value') }}</strong>
-            </span>
-        @endif
+        @error('value')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
     </div>
 </div>
 
 
 {{-- description --}}
-<div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
-    <label for="description" class="col-md-4 control-label">Description</label>
+<div class="form-group row">
+    <label for="description" class="col-md-4 col-form-label text-md-right">Description</label>
 
     <div class="col-md-6">
-        <input id="description" type="text" class="form-control" name="description"
-               value="{{ $description or old('description') }}" autofocus>
+        <input id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description"
+               value="{{ $description ?? old('description') }}">
 
-        @if ($errors->has('description'))
-            <span class="help-block">
-                <strong>{{ $errors->first('description') }}</strong>
-            </span>
-        @endif
+        @error('description')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
     </div>
 </div>

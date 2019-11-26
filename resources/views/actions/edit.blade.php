@@ -1,8 +1,8 @@
-<a href="{{$action}}" role="button" class="btn btn-xs btn-warning"
-   aria-label="{{$tip or 'Edit'}}"
+<a href="{{$action}}" role="button" class="btn btn-sm btn-warning"
+   aria-label="{{$tip ?? 'Edit'}}"
    data-toggle="tooltip"
-   data-placement="auto bottom"
-   title="{{$tip or 'Edit'}}">
+   data-placement="auto"
+   title="{{$tip ?? 'Edit'}}">
     <i class="fa fa-pencil" aria-hidden="true"></i>
 </a>
 

@@ -2,21 +2,21 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card mb-3">
 
-                    <div class="panel-heading"
-                         style="display: flex; justify-content: space-between; align-items: center;">
-                        <h3 class="panel-name">Triggers</h3>
+                    <div class="card-header d-flex justify-content-between">
 
-                        <a class="btn btn-default btn-sm" href="{{route('triggers.create')}}">
+                        <h3 class="mb-0">Triggers</h3>
+
+                        <a class="btn btn-secondary btn-sm align-self-center" href="{{route('triggers.create')}}">
                             <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Create new trigger
                         </a>
                     </div>
 
                     @if($triggers->count() > 0)
-                        <table class="table table-bordered table-condensed table-striped">
+                        <table class="table table-bordered table-sm table-striped mb-0">
                             <thead>
                             <tr>
                                 <th>Id</th>
@@ -25,6 +25,7 @@
                                 <th>Trigger Value</th>
                                 <th>Observing</th>
                                 <th>Creator</th>
+                                <th>Created</th>
                                 <th>Updated</th>
                                 <th>Actions</th>
                             </tr>
@@ -80,7 +81,7 @@
                             </tbody>
                         </table>
                     @else
-                        <div class="panel-body">
+                        <div class="card-body">
                             <p class="text-center text-warning">There are no configured triggers.</p>
                         </div>
                     @endif

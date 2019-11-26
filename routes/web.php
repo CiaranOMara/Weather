@@ -16,17 +16,17 @@ Route::get('/', function () {
 });
 
 Auth::routes(['verify' => true]);
+Route::get('logout', 'Auth\LoginController@logout');
 
-Route::get('password/set', 'Auth\RegisterController@showSetPasswordForm')->name('password.set')->middleware('logout', 'guest');
-Route::post('password/set', 'Auth\RegisterController@setPassword')->name('password.set.post')->middleware('guest');
-
-Route::get('confirm/{token}', ['as' => 'auth.confirm', 'uses' => 'Auth\RegisterController@confirmEmail'])->middleware('logout', 'guest');
+Route::get('password/set', 'Auth\SetPasswordController@showSetForm')->name('password.set')->middleware('signed');
+Route::post('password/set', 'Auth\SetPasswordController@set')->name('password.set.post')->middleware('signed');
 
 
 Route::group(['middleware' => ['auth']], function () {
 
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
-    Route::get('home', function () {
+    Route::get('home', function (\Illuminate\Http\Request $request) {
+        $request->session()->reflash();
         return redirect()->route('dashboard');
     })->name('home');
 

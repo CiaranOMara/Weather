@@ -9,10 +9,15 @@ return [
      |
      | Debugbar is enabled by default, when debug is set to true in app.php.
      | You can override the value by setting enable to true or false instead of null.
+     | 
+     | You can provide an array of URI's that must be ignored (eg. 'api/*')
      |
      */
 
     'enabled' => env('DEBUGBAR_ENABLED', null),
+    'except' => [
+        'telescope*'
+    ],
 
     /*
      |--------------------------------------------------------------------------
@@ -110,12 +115,13 @@ return [
         'session'         => true,  // Display session data
         'symfony_request' => true,  // Only one can be enabled..
         'mail'            => true,  // Catch mail messages
-        'laravel'         => true, // Laravel version and environment
-        'events'          => true, // All events fired
+        'laravel'         => false, // Laravel version and environment
+        'events'          => false, // All events fired
         'default_request' => false, // Regular or special Symfony request logger
         'logs'            => false, // Add the latest log messages
         'files'           => false, // Show the included files
         'config'          => false, // Display config settings
+        'cache'           => false, // Display cache events
     ],
 
     /*
@@ -134,10 +140,10 @@ return [
         'db' => [
             'with_params'       => true,   // Render SQL with the parameters substituted
             'backtrace'         => true,   // Use a backtrace to find the origin of the query in your files.
-            'timeline'          => true,  // Add the queries to the timeline
+            'timeline'          => false,  // Add the queries to the timeline
             'explain' => [                 // Show EXPLAIN output on queries
                 'enabled' => false,
-                'types' => ['SELECT'],     // ['SELECT', 'INSERT', 'UPDATE', 'DELETE']; for MySQL 5.6.3+
+                'types' => ['SELECT'],     // // workaround ['SELECT'] only. https://github.com/barryvdh/laravel-debugbar/issues/888 ['SELECT', 'INSERT', 'UPDATE', 'DELETE']; for MySQL 5.6.3+
             ],
             'hints'             => true,    // Show hints for common mistakes
         ],
@@ -152,6 +158,9 @@ return [
         ],
         'logs' => [
             'file' => null
+        ],
+        'cache' => [
+            'values' => true // collect cache values
         ],
     ],
 

@@ -2,14 +2,15 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-name">Edit Trigger</h3>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card mb-3">
+
+                    <div class="card-header">
+                        <h3 class="mb-0">Edit Trigger</h3>
                     </div>
 
-                    <div class="panel-body">
+                    <div class="card-body">
                         @include('errors.list')
 
                         <form class="form-horizontal" role="form" method="POST"
@@ -17,17 +18,17 @@
 
                             {{ method_field('PATCH') }}
 
-                            {{ csrf_field() }}
+                            @csrf
 
                             @include('triggers.fields', $trigger->toArray())
 
                             {{-- Submit Field --}}
-                            <div class="form-group">
-                                <div class="col-md-6 col-md-offset-4">
+                            <div class="form-group row mb-0">
+                                <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
                                         Update
                                     </button>
-                                    <a class="btn btn-default" href="{{route('triggers.index')}}">Cancel</a>
+                                    <a class="btn btn-secondary" href="{{route('triggers.index')}}">Cancel</a>
                                 </div>
                             </div>
 
@@ -38,16 +39,16 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-name">Subscribed Users</h3>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card mb-3">
+
+                    <div class="card-header">
+                        <h3 class="mb-0">Subscribed Users</h3>
                     </div>
 
-
                     @if($trigger->users->count() > 0)
-                        <table class="table table-condensed table-bordered table-striped">
+                        <table class="table table-bordered table-sm table-striped mb-0">
                             <thead>
                             <tr>
                                 <th>Name</th>
@@ -81,15 +82,16 @@
 
                     @if($users->count() > 0)
                         @permission('triggers.attach.user')
-                        <div class="panel-body">
+                        <div class="card-body">
 
-                            <h4>Subscribe User</h4>
+                            <h5 class="card-title">Subscribe User</h5>
+
                             <form class="form-inline" role="form" method="POST"
                                   action="{{ route('triggers.users.store', ['trigger' => $trigger->id]) }}">
 
-                                {{ csrf_field() }}
+                                @csrf
 
-                                <div class="form-group">
+                                <div class="form-group mr-1">
                                     <select class="form-control" name="user">
 
                                         @foreach ($users as $user)
@@ -101,11 +103,9 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <div class="col-sm-offset-4">
-                                        <button type="submit" class="btn btn-primary">
-                                            Add user
-                                        </button>
-                                    </div>
+                                    <button type="submit" class="btn btn-primary">
+                                        Add user
+                                    </button>
                                 </div>
 
                             </form>

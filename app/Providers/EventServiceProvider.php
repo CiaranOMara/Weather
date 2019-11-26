@@ -28,7 +28,7 @@ class EventServiceProvider extends ServiceProvider
         // Administrative Events
 
         \App\Events\AdminCreatedUser::class => [
-            \App\Listeners\SendVerificationRequestFromAdministrator::class,
+            \App\Listeners\AdminCreatedUser::class,
         ],
 
         // Authentication Events

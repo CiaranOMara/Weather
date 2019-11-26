@@ -1,65 +1,65 @@
 {{-- namme --}}
-<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-    <label for="name" class="col-md-4 control-label">Name</label>
+<div class="form-group row">
+    <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
 
     <div class="col-md-6">
-        <input id="name" type="text" class="form-control" name="name"
-               value="{{ $name or old('name') }}" autofocus>
+        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name"
+               value="{{ $name ?? old('name') }}" autofocus>
 
-        @if ($errors->has('name'))
-            <span class="help-block">
-                <strong>{{ $errors->first('name') }}</strong>
-            </span>
-        @endif
+        @error('name')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
     </div>
 </div>
 
 
 {{-- slug --}}
-<div class="form-group{{ $errors->has('slug') ? ' has-error' : '' }}">
-    <label for="slug" class="col-md-4 control-label">Slug</label>
+<div class="form-group row">
+    <label for="slug" class="col-md-4 col-form-label text-md-right">Slug</label>
 
     <div class="col-md-6">
-        <input id="slug" type="text" class="form-control" name="slug"
-               value="{{ $slug or old('slug') }}">
+        <input id="slug" type="text" class="form-control @error('slug') is-invalid @enderror" name="slug"
+               value="{{ $slug ?? old('slug') }}">
 
-        @if ($errors->has('slug'))
-            <span class="help-block">
-                <strong>{{ $errors->first('slug') }}</strong>
-            </span>
-        @endif
+        @error('slug')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
     </div>
 </div>
 
 
 {{-- description --}}
-<div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
-    <label for="description" class="col-md-4 control-label">Description</label>
+<div class="form-group row">
+    <label for="description" class="col-md-4 col-form-label text-md-right">Description</label>
 
     <div class="col-md-6">
-        <input id="description" type="text" class="form-control" name="description"
-               value="{{ $description or old('description') }}">
+        <input id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description"
+               value="{{ $description ?? old('description') }}">
 
-        @if ($errors->has('description'))
-            <span class="help-block">
-                <strong>{{ $errors->first('description') }}</strong>
-            </span>
-        @endif
+        @error('description')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
     </div>
 </div>
 
 {{-- model --}}
-<div class="form-group{{ $errors->has('model') ? ' has-error' : '' }}">
-    <label for="model" class="col-md-4 control-label">Model</label>
+<div class="form-group row">
+    <label for="model" class="col-md-4 col-form-label text-md-right">Model</label>
 
     <div class="col-md-6">
-        <input id="model" type="text" class="form-control" name="model"
-               value="{{ $model or old('model') }}">
+        <input id="model" type="text" class="form-control @error('model') is-invalid @enderror" name="model"
+               value="{{ $model ?? old('model') }}">
 
-        @if ($errors->has('model'))
-            <span class="help-block">
-                <strong>{{ $errors->first('model') }}</strong>
-            </span>
-        @endif
+        @error('model')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
     </div>
 </div>

@@ -2,7 +2,6 @@
 
 namespace App\Events;
 
-use App\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -11,22 +10,25 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class AdminCreatedUser
+class PasswordSet
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use SerializesModels;
 
-    public $admin;
+    /**
+     * The user.
+     *
+     * @var \Illuminate\Contracts\Auth\Authenticatable
+     */
     public $user;
 
     /**
      * Create a new event instance.
      *
+     * @param \Illuminate\Contracts\Auth\Authenticatable $user
      * @return void
      */
-    public function __construct(User $admin, User $user)
+    public function __construct($user)
     {
-        $this->admin = $admin;
         $this->user = $user;
     }
-
 }

@@ -1,4 +1,4 @@
-const {mix} = require('laravel-mix');
+const mix = require('laravel-mix');
 
 /*
  |--------------------------------------------------------------------------
@@ -11,14 +11,18 @@ const {mix} = require('laravel-mix');
  |
  */
 
-mix.js('resources/assets/js/app.js', 'public/js')
-    .sass('resources/assets/sass/app.scss', 'public/css')
-    .extract(['axios', 'bootstrap-sass', 'jquery', 'laravel-echo', 'lodash', 'moment', 'vue'])
-    .copy('node_modules/font-awesome/fonts', 'public/fonts');
+mix.js('resources/js/app.js', 'public/js')
+    .extract(['axios', 'bootstrap', 'jquery', 'lodash', 'moment', 'vue']);
+
+mix.sass('resources/sass/app.scss', 'public/css');
+
+mix.version();
+
+mix.copy('node_modules/font-awesome/fonts', 'public/fonts');
 
 if (mix.config.inProduction) {
     mix.disableNotifications();
-    mix.version();
+    // mix.version();
 }
 
 mix.autoload({
