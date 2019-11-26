@@ -32,6 +32,10 @@ class EventServiceProvider extends ServiceProvider
 
         // Authentication Events
 
+        \Illuminate\Auth\Events\Verified::class => [
+            \App\Listeners\LogVerifiedUser::class,
+        ],
+
         \Illuminate\Auth\Events\Registered::class => [
             \App\Listeners\LogRegisteredUser::class,
             \App\Listeners\SendVerificationRequest::class,

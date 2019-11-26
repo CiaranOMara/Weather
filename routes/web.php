@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('password/set', 'Auth\RegisterController@showSetPasswordForm')->name('password.set')->middleware('logout', 'guest');
 Route::post('password/set', 'Auth\RegisterController@setPassword')->name('password.set.post')->middleware('guest');
